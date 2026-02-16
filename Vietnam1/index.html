@@ -3,362 +3,659 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>History Revision Mindmap — Vietnam (to 1954)</title>
+  <title>Vietnam (to 1954) — Intelligence Dossier</title>
   <style>
-    :root{
-      --ink:#111; --muted:#666; --line:#d9d9d9; --soft:#f4f4f4; --bg:#fff;
-    }
-    body{
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      background:var(--bg); color:var(--ink);
-      max-width: 1100px; margin: 24px auto; padding: 0 14px; line-height:1.55;
-    }
-    h1{font-size: 1.6rem; margin:0 0 6px;}
-    .sub{color:var(--muted); margin:0 0 18px;}
-    .bar{
-      border:1px solid var(--line); border-radius:14px; padding:12px; background:#fff; margin:14px 0;
-      display:flex; gap:10px; flex-wrap:wrap; align-items:center;
-    }
-    .pill{border:1px solid var(--line); border-radius:999px; padding:6px 10px; background:var(--soft); font-size:.95rem;}
-    .btn{padding:8px 10px; border-radius:10px; border:1px solid #aaa; background:#fff; cursor:pointer;}
-    .btn:hover{background:var(--soft);}
+    @import url('https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&family=Inter:wght@400;600;800&display=swap');
 
-    /* Mindmap layout */
-    .map{display:flex; flex-direction:column; gap:14px; margin-top:14px;}
-    .node{
-      border:1px solid var(--line); border-radius:16px; padding:14px; background:#fff;
-    }
-    .nodeHead{
-      display:flex; justify-content:space-between; align-items:flex-start; gap:12px; flex-wrap:wrap;
-    }
-    .title{font-weight:800; font-size:1.08rem;}
-    .mini{color:var(--muted); font-size:.95rem;}
-    .branches{
-      margin-top:10px;
-      border-top:1px solid var(--line);
-      padding-top:10px;
-      display:none;
+    :root {
+      --dossier-bg: #e5e7eb;
+      --paper: #fdfdfb;
+      --ink: #111827;
+      --stamp-red: #991b1b;
+      --accent: #1e40af;
+      --accent-light: #dbeafe;
+      --success: #065f46;
+      --muted: #6b7280;
+      --border: #d1d5db;
     }
 
-    /* Main point -> 3 subpoints */
-    .three{display:grid; grid-template-columns: 1fr 1fr 1fr; gap:10px;}
-    @media (max-width: 900px){ .three{grid-template-columns:1fr;} }
+    * { box-sizing: border-box; }
 
-    .branch{
-      background:var(--soft); border-radius:14px; padding:10px;
-      border:1px solid #eee;
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--dossier-bg);
+      color: var(--ink);
+      margin: 0;
+      padding: 20px;
+      line-height: 1.6;
     }
-    .branch b{display:block; margin-bottom:6px;}
-    ul{margin:6px 0 0 18px;}
-    li{margin:6px 0;}
 
-    /* Underlined expandable parts */
-    .u{
-      text-decoration: underline;
-      text-decoration-thickness: 2px;
-      text-underline-offset: 3px;
-      cursor:pointer;
-      font-weight:650;
+    .folder {
+      max-width: 1000px;
+      margin: 0 auto;
+      background: var(--paper);
+      box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1), 10px 10px 0px rgba(0,0,0,0.05);
+      border: 1px solid var(--border);
+      position: relative;
+      min-height: 100vh;
+      overflow: hidden;
     }
-    .detailBox{
-      display:none;
-      margin-top:8px;
-      border:1px dashed #bbb;
-      border-radius:12px;
-      padding:10px;
-      background:#fff;
-    }
-    .detailBox .mini{margin-top:4px;}
-    .detailBox ul{margin:6px 0 0 18px;}
 
-    /* Arrow explanation */
-    .arrow{
-      margin-top:10px;
-      border:1px solid var(--line);
-      border-radius:14px;
-      padding:10px;
-      background:#fff;
-      display:none;
+    /* Secret Stamp Effect */
+    .stamp {
+      position: absolute;
+      top: 40px;
+      right: 40px;
+      border: 4px double var(--stamp-red);
+      color: var(--stamp-red);
+      font-family: 'Courier Prime', monospace;
+      padding: 5px 15px;
+      font-weight: bold;
+      transform: rotate(15deg);
+      opacity: 0.7;
+      text-transform: uppercase;
+      pointer-events: none;
+      z-index: 10;
     }
-    .arrowRow{display:flex; gap:10px; align-items:flex-start; flex-wrap:wrap;}
-    .arrowIcon{
-      font-size:1.2rem; line-height:1;
-      padding:6px 10px; border-radius:999px; background:var(--soft); border:1px solid var(--line);
-      white-space:nowrap;
+
+    header {
+      padding: 60px 40px 20px;
+      border-bottom: 2px solid var(--ink);
     }
-    .arrowText{flex:1; min-width: 240px;}
-    .kbd{font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; background:var(--soft); border:1px solid var(--line); border-radius:8px; padding:2px 6px;}
+
+    h1 {
+      font-family: 'Courier Prime', monospace;
+      font-size: 2.2rem;
+      margin: 0;
+      text-transform: uppercase;
+    }
+
+    .sub-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-top: 10px;
+    }
+
+    .metadata {
+      font-family: 'Courier Prime', monospace;
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    /* Tactical Console */
+    .console {
+      background: #111;
+      color: #10b981;
+      font-family: 'Courier Prime', monospace;
+      padding: 15px;
+      margin: 20px 40px;
+      border-radius: 4px;
+      font-size: 0.85rem;
+      box-shadow: inset 0 0 10px #000;
+    }
+
+    .console-line::before { content: "> "; }
+
+    /* Dashboard & Progress */
+    .nav-bar {
+      padding: 20px 40px;
+      background: #f3f4f6;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .progress-bar {
+      flex: 1;
+      height: 6px;
+      background: #e5e7eb;
+      border-radius: 3px;
+      margin: 0 20px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      background: var(--accent);
+      transition: width 0.4s ease;
+    }
+
+    .btn {
+      padding: 8px 16px;
+      font-family: 'Courier Prime', monospace;
+      font-weight: bold;
+      border: 1px solid var(--ink);
+      background: transparent;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .btn:hover { background: var(--ink); color: white; }
+    .btn.active { background: var(--accent); color: white; border-color: var(--accent); }
+
+    /* Timeline */
+    .briefing-timeline {
+      display: flex;
+      gap: 15px;
+      padding: 20px 40px;
+      overflow-x: auto;
+      background: #fff;
+    }
+
+    .briefing-node {
+      min-width: 160px;
+      padding: 10px;
+      border: 1px dashed var(--muted);
+      font-size: 0.8rem;
+    }
+
+    .briefing-node b { color: var(--accent); display: block; }
+
+    /* Dossier Sections */
+    .section {
+      padding: 40px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .section-head {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      cursor: pointer;
+    }
+
+    .section-head h2 {
+      font-family: 'Courier Prime', monospace;
+      margin: 0;
+      flex: 1;
+    }
+
+    .status-badge {
+      font-size: 0.7rem;
+      padding: 3px 8px;
+      background: var(--dossier-bg);
+      border-radius: 4px;
+    }
+
+    .status-badge.complete {
+      background: var(--success);
+      color: white;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      margin-top: 30px;
+    }
+
+    @media (max-width: 768px) { .grid { grid-template-columns: 1fr; } }
+
+    .intel-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      padding: 15px;
+      position: relative;
+    }
+
+    .intel-card h4 {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin: 0 0 10px;
+      border-bottom: 1px solid var(--accent-light);
+    }
+
+    /* Contextual Terminology */
+    .term {
+      text-decoration: underline wavy var(--accent);
+      text-underline-offset: 4px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .term-popup {
+      display: none;
+      margin-top: 10px;
+      padding: 12px;
+      background: #f8fafc;
+      border-left: 3px solid var(--accent);
+      font-size: 0.85rem;
+    }
+
+    /* Challenge Mode */
+    .challenge-box {
+      margin-top: 30px;
+      padding: 20px;
+      border: 2px solid var(--border);
+      background: #f9fafb;
+    }
+
+    .challenge-box.unlocked {
+      border-color: var(--success);
+    }
+
+    .option {
+      display: block;
+      width: 100%;
+      text-align: left;
+      padding: 12px;
+      margin-top: 8px;
+      border: 1px solid var(--border);
+      background: white;
+      cursor: pointer;
+      font-family: inherit;
+    }
+
+    .option:hover { background: var(--accent-light); }
+    .option.correct { background: #d1fae5; border-color: var(--success); font-weight: bold; }
+    .option.wrong { background: #fee2e2; border-color: var(--stamp-red); }
+
+    .synthesis {
+      display: none;
+      margin-top: 20px;
+      padding: 20px;
+      background: #111827;
+      color: #e5e7eb;
+      font-family: 'Courier Prime', monospace;
+      line-height: 1.5;
+    }
+
+    .synthesis b { color: #38bdf8; }
+
+    /* SVG Map Placeholder Style */
+    .tactical-map {
+      width: 100%;
+      height: 100px;
+      background: #e2e8f0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 10px;
+      font-size: 0.7rem;
+      color: var(--muted);
+      border: 1px solid var(--border);
+    }
+
+    /* Mode Overlay */
+    body.challenge-mode .synthesis {
+      filter: blur(8px);
+      pointer-events: none;
+    }
+
   </style>
 </head>
-<body>
+<body id="body">
 
-<h1>Vietnam (to 1954) — Revision Mindmap</h1>
-<p class="sub">
-  Click the <span class="kbd">main point</span> to show 3 sub-points. Click any <span class="u">underlined</span> part to expand 3 details.
-  At the end, open the <span class="kbd">→ Link to outcome</span> to see how it explains win/lose.
-</p>
-
-<div class="bar">
-  <span class="pill">Format: Main point → 3 sub-points → (click to elaborate) → Link to outcome</span>
-  <button class="btn" onclick="expandAll()">Expand all</button>
-  <button class="btn" onclick="collapseAll()">Collapse all</button>
-</div>
-
-<div class="map">
-
-  <!-- NODE 1 -->
-  <section class="node" id="n1">
-    <div class="nodeHead">
-      <div>
-        <div class="title" onclick="toggleNode('n1')" style="cursor:pointer;">I. Cold War Context (Big Picture)</div>
-        <div class="mini">Why outside powers cared, and why the war mattered beyond Vietnam.</div>
-      </div>
-      <div>
-        <button class="btn" onclick="toggleNode('n1')">Show / Hide</button>
-      </div>
+<div class="folder">
+  <div class="stamp">Top Secret</div>
+  
+  <header>
+    <h1>Case File: Indochina Operation</h1>
+    <div class="sub-header">
+      <div class="metadata">Subject: Vietnam Conflict (1941 - 1954)<br>Classification: High Priority Revision</div>
+      <div class="metadata">Date: 17 Feb 1954</div>
     </div>
+  </header>
 
-    <div class="branches">
-      <div class="three">
+  <div class="nav-bar">
+    <div class="btn-group">
+      <button class="btn" onclick="toggleAll(true)">Expand All</button>
+      <button class="btn" onclick="toggleAll(false)">Collapse</button>
+    </div>
+    <div class="progress-bar"><div class="progress-fill" id="p-fill"></div></div>
+    <button class="btn active" id="mode-btn" onclick="toggleMode()">Mode: Learning</button>
+  </div>
 
-        <div class="branch">
-          <b>1) Global ideological conflict</b>
-          <div>
-            The war became a <span class="u" data-target="d_proxy">proxy conflict</span> between communism and anti-communism.
-            <div class="detailBox" id="d_proxy">
-              <b>3 details (expand your thinking):</b>
+  <div class="console" id="console">
+    <div class="console-line">Initializing Dossier...</div>
+    <div class="console-line">Awaiting tactical input. Click sections to begin briefing.</div>
+  </div>
+
+  <div class="briefing-timeline">
+    <div class="briefing-node"><b>1945</b>Japan surrenders. Ho Chi Minh declares DRV in Hanoi.</div>
+    <div class="briefing-node"><b>1946</b>Battle of Haiphong. First Indochina War officially begins.</div>
+    <div class="briefing-node"><b>1950</b>Truman grants $10M in aid. Proxy war intensifies.</div>
+    <div class="briefing-node"><b>1953</b>Navarre Plan initiated. Build-up at Dien Bien Phu.</div>
+    <div class="briefing-node"><b>1954 (May)</b>French surrender at DBP. Total military collapse.</div>
+    <div class="briefing-node"><b>1954 (July)</b>Geneva Accords. Vietnam partitioned at 17th Parallel.</div>
+  </div>
+
+  <main>
+    <!-- SECTION 1 -->
+    <section class="section" id="s1">
+      <div class="section-head" onclick="toggleSection('s1')">
+        <h2>I. Superpower Geostrategy</h2>
+        <span class="status-badge" id="b1">UNREAD</span>
+      </div>
+      
+      <div class="section-content" style="display:none;">
+        <div class="grid">
+          <div class="intel-card">
+            <h4>Global Context</h4>
+            Vietnam as a <span class="term" onclick="showTerm('t1')">Friction Point</span>.
+            <div class="term-popup" id="t1">
+              <b>Tactical Reality:</b>
               <ul>
-                <li>Both sides received outside support (money, weapons, advice) rather than superpowers fighting directly.</li>
-                <li>This turned a local independence struggle into an international ideological contest.</li>
-                <li>Success or failure affected global prestige: “Which system looks stronger?”</li>
+                <li>After 1949, Mao’s victory in China provided the Viet Minh a "safe rear" for training and artillery supply.</li>
+                <li>The US viewed Vietnam as part of a global "Communist Monolith" directed from Moscow.</li>
+              </ul>
+            </div>
+          </div>
+          <div class="intel-card">
+            <h4>US Doctrine</h4>
+            The logic of <span class="term" onclick="showTerm('t2')">Containment</span>.
+            <div class="term-popup" id="t2">
+              <b>Tactical Reality:</b>
+              <ul>
+                <li>The US prioritized stopping communism over their anti-colonial values.</li>
+                <li>By 1954, the US was paying for nearly 80% of France's military costs in Indochina.</li>
+              </ul>
+            </div>
+          </div>
+          <div class="intel-card">
+            <h4>French Stance</h4>
+            Preserving <span class="term" onclick="showTerm('t3')">Imperial Integrity</span>.
+            <div class="term-popup" id="t3">
+              <b>Tactical Reality:</b>
+              <ul>
+                <li>France feared losing Vietnam would trigger independence movements in French Algeria and Morocco.</li>
+                <li>They refused to grant full independence to the Bao Dai government, keeping it a "puppet" state.</li>
               </ul>
             </div>
           </div>
         </div>
 
-        <div class="branch">
-          <b>2) US thinking</b>
-          The US was influenced by the <span class="u" data-target="d_domino">Domino Theory</span>.
-          <div class="detailBox" id="d_domino">
-            <b>3 details (expand your thinking):</b>
-            <ul>
-              <li>US leaders feared a chain reaction across Southeast Asia (Vietnam → Laos/Cambodia → Thailand/Malaya etc.).</li>
-              <li>This made Vietnam feel “strategic”, even if Americans knew little about local nationalism.</li>
-              <li>It encouraged earlier, deeper involvement to stop communism “before it spreads”.</li>
-            </ul>
+        <div class="challenge-box" id="q1">
+          <strong>CHALLENGE: Why did the US support a colonial power (France) against an independence movement?</strong>
+          <div class="options">
+            <button class="option" onclick="ans(this, false, 'q1')">They wanted French wine and rubber exports.</button>
+            <button class="option" onclick="ans(this, true, 'q1')">Cold War containment logic made stopping communism more important than anti-colonialism.</button>
+            <button class="option" onclick="ans(this, false, 'q1')">Ho Chi Minh had officially declared war on the United States in 1945.</button>
           </div>
-        </div>
-
-        <div class="branch">
-          <b>3) Containment policy</b>
-          The US pursued <span class="u" data-target="d_contain">containment through support</span> to anti-communist forces.
-          <div class="detailBox" id="d_contain">
-            <b>3 details (expand your thinking):</b>
-            <ul>
-              <li>Support was financial and military: equipment, training, and aid to keep anti-communists afloat.</li>
-              <li>Containment assumed communism spreads if not actively resisted.</li>
-              <li>It pushed the conflict towards “Cold War logic”, not just Vietnamese realities.</li>
-            </ul>
-          </div>
-        </div>
-
-      </div>
-
-      <div class="bar" style="margin-top:12px;">
-        <span class="pill">→ Link to outcome</span>
-        <button class="btn" onclick="toggleArrow('a1')">Show / Hide</button>
-      </div>
-      <div class="arrow" id="a1">
-        <div class="arrowRow">
-          <div class="arrowIcon">→ Outcome link</div>
-          <div class="arrowText">
-            Cold War thinking increased the stakes and outside involvement. This did <b>not</b> automatically win the war for France,
-            but it shaped how the US interpreted Viet Minh success (as communism expanding) and set the stage for greater US involvement
-            after 1954.
+          <div class="synthesis" id="syn1">
+            <b>Dossier Analysis:</b> The Cold War effectively "kidnapped" a local independence struggle. Without <b>Chinese supply lines</b>, the Viet Minh couldn't fight a big war; without <b>US funding</b>, the French economy would have collapsed. Both superpowers turned Vietnam into a meatgrinder for their ideologies.
           </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- NODE 2 -->
-  <section class="node" id="n2">
-    <div class="nodeHead">
-      <div>
-        <div class="title" onclick="toggleNode('n2')" style="cursor:pointer;">II. French Weaknesses at Dien Bien Phu</div>
-        <div class="mini">How French decisions + vulnerabilities produced defeat.</div>
+    <!-- SECTION 2 -->
+    <section class="section" id="s2">
+      <div class="section-head" onclick="toggleSection('s2')">
+        <h2>II. Siege Analysis: Dien Bien Phu</h2>
+        <span class="status-badge" id="b2">UNREAD</span>
       </div>
-      <div>
-        <button class="btn" onclick="toggleNode('n2')">Show / Hide</button>
-      </div>
-    </div>
-
-    <div class="branches">
-      <div class="three">
-
-        <div class="branch">
-          <b>1) Strategic miscalculation</b>
-          They chose a <span class="u" data-target="d_valley">valley base strategy</span>, assuming firepower would guarantee victory.
-          <div class="detailBox" id="d_valley">
-            <b>3 details (expand your thinking):</b>
-            <ul>
-              <li>A valley invites encirclement: the enemy can occupy higher ground around you.</li>
-              <li>It turns your “fortress” into a trap if you cannot break out.</li>
-              <li>It underestimates enemy adaptability (e.g., moving artillery, sustaining a siege).</li>
-            </ul>
+      
+      <div class="section-content" style="display:none;">
+        <div class="grid">
+          <div class="intel-card">
+            <div class="tactical-map">MAP: VALEY TOPOGRAPHY [ENCLOSED]</div>
+            <h4>The Strategy</h4>
+            The <span class="term" onclick="showTerm('t4')">Hedgehog Trap</span>.
+            <div class="term-popup" id="t4">
+              <b>Tactical Reality:</b>
+              <ul>
+                <li>The French chose a remote valley to "lure" the Viet Minh into an open fight.</li>
+                <li>They assumed the high mountains around the valley were impassable for heavy artillery.</li>
+              </ul>
+            </div>
+          </div>
+          <div class="intel-card">
+            <h4>The Failure</h4>
+            The <span class="term" onclick="showTerm('t5')">Logistical Miracle</span>.
+            <div class="term-popup" id="t5">
+              <b>Tactical Reality:</b>
+              <ul>
+                <li>Viet Minh peasants dragged 200 heavy cannons through 50 miles of jungle.</li>
+                <li>They dismantled the guns and rebuilt them in concealed caves overlooking the French.</li>
+              </ul>
+            </div>
+          </div>
+          <div class="intel-card">
+            <h4>The Result</h4>
+            A <span class="term" onclick="showTerm('t6')">Decapitation Strike</span>.
+            <div class="term-popup" id="t6">
+              <b>Tactical Reality:</b>
+              <ul>
+                <li>The Viet Minh destroyed the French airstrip on day one, making resupply impossible.</li>
+                <li>The French elite paratroopers were trapped in mud, outgunned by "invisible" artillery.</li>
+              </ul>
+            </div>
           </div>
         </div>
 
-        <div class="branch">
-          <b>2) Logistical vulnerability</b>
-          The Viet Minh <span class="u" data-target="d_supply">cut supply lines</span>, isolating the French and draining essentials.
-          <div class="detailBox" id="d_supply">
-            <b>3 details (expand your thinking):</b>
-            <ul>
-              <li>No steady flow of food, medicine, and ammunition undermines any defensive position.</li>
-              <li>Morale collapses when casualties rise and evacuation/resupply fails.</li>
-              <li>Isolation increases dependence on air supply—which can be disrupted.</li>
-            </ul>
+        <div class="challenge-box" id="q2">
+          <strong>CHALLENGE: What was the primary topographical error made by French General Navarre?</strong>
+          <div class="options">
+            <button class="option" onclick="ans(this, false, 'q2')">He chose a location too close to the sea.</button>
+            <button class="option" onclick="ans(this, true, 'q2')">He occupied a valley floor, allowing the enemy to hold the high ground.</button>
+            <button class="option" onclick="ans(this, false, 'q2')">He built the base on a swamp that sank the tanks.</button>
           </div>
-        </div>
-
-        <div class="branch">
-          <b>3) Collapse of political will</b>
-          Defeat created domestic pressure and pushed France into <span class="u" data-target="d_geneva">Geneva (1954)</span>.
-          <div class="detailBox" id="d_geneva">
-            <b>3 details (expand your thinking):</b>
-            <ul>
-              <li>Public support falls when a war looks unwinnable and expensive.</li>
-              <li>Governments retreat when costs outweigh benefits (resources + lives).</li>
-              <li>Negotiations become the “exit route” when military victory is no longer credible.</li>
-            </ul>
-          </div>
-        </div>
-
-      </div>
-
-      <div class="bar" style="margin-top:12px;">
-        <span class="pill">→ Link to outcome</span>
-        <button class="btn" onclick="toggleArrow('a2')">Show / Hide</button>
-      </div>
-      <div class="arrow" id="a2">
-        <div class="arrowRow">
-          <div class="arrowIcon">→ Why France lost</div>
-          <div class="arrowText">
-            The French created conditions for defeat: a vulnerable position + isolation meant they could not sustain defence.
-            Once Dien Bien Phu fell, French political will weakened, making withdrawal and negotiation far more likely.
+          <div class="synthesis" id="syn2">
+            <b>Dossier Analysis:</b> Dien Bien Phu was a <b>hubris-driven disaster</b>. The French relied on 20th-century technology (planes/tanks) but were defeated by 19th-century methods (human porters) combined with Chinese-supplied 20th-century artillery.
           </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- NODE 3 -->
-  <section class="node" id="n3">
-    <div class="nodeHead">
-      <div>
-        <div class="title" onclick="toggleNode('n3')" style="cursor:pointer;">III. Viet Minh Strengths (North Vietnamese)</div>
-        <div class="mini">How tactics, support, and determination produced victory.</div>
+    <!-- SECTION 3 -->
+    <section class="section" id="s3">
+      <div class="section-head" onclick="toggleSection('s3')">
+        <h2>III. The Viet Minh Machine</h2>
+        <span class="status-badge" id="b3">UNREAD</span>
       </div>
-      <div>
-        <button class="btn" onclick="toggleNode('n3')">Show / Hide</button>
-      </div>
-    </div>
-
-    <div class="branches">
-      <div class="three">
-
-        <div class="branch">
-          <b>1) Effective tactics</b>
-          They used <span class="u" data-target="d_guer">guerrilla and siege methods</span> to beat better-equipped forces.
-          <div class="detailBox" id="d_guer">
-            <b>3 details (expand your thinking):</b>
-            <ul>
-              <li>Avoided open battles when disadvantaged; chose when/where to fight.</li>
-              <li>Used terrain to disrupt and exhaust the enemy over time.</li>
-              <li>Turned battles into wars of endurance (wearing down supply + morale).</li>
-            </ul>
+      
+      <div class="section-content" style="display:none;">
+        <div class="grid">
+          <div class="intel-card">
+            <h4>Mobilization</h4>
+            The <span class="term" onclick="showTerm('t7')">Dan Cong</span> system.
+            <div class="term-popup" id="t7">
+              <b>Tactical Reality:</b>
+              <ul>
+                <li>"Dan Cong" were civilian porters (men and women) who moved supplies on bicycles.</li>
+                <li>One porter could move 200kg of rice—more than a truck in dense jungle conditions.</li>
+              </ul>
+            </div>
+          </div>
+          <div class="intel-card">
+            <h4>Tactics</h4>
+            <span class="term" onclick="showTerm('t8')">Asymmetrical Warfare</span>.
+            <div class="term-popup" id="t8">
+              <b>Tactical Reality:</b>
+              <ul>
+                <li>Giap used "hit and run" tactics to bleed French convoys on Route Coloniale 4.</li>
+                <li>The goal wasn't to "hold territory" but to make the cost of holding it too high for France.</li>
+              </ul>
+            </div>
+          </div>
+          <div class="intel-card">
+            <h4>Hearts/Minds</h4>
+            <span class="term" onclick="showTerm('t9')">Political Indoctrination</span>.
+            <div class="term-popup" id="t9">
+              <b>Tactical Reality:</b>
+              <ul>
+                <li>Viet Minh soldiers were required to help peasants with harvests.</li>
+                <li>Promises of land reform made the Viet Minh the "legitimate" government in the eyes of the poor.</li>
+              </ul>
+            </div>
           </div>
         </div>
 
-        <div class="branch">
-          <b>2) Popular support</b>
-          Ho Chi Minh prioritised <span class="u" data-target="d_people">mobilising the population</span>.
-          <div class="detailBox" id="d_people">
-            <b>3 details (expand your thinking):</b>
-            <ul>
-              <li>Local support provides food, intelligence, shelter, and recruits.</li>
-              <li>It becomes hard for opponents to identify fighters from civilians.</li>
-              <li>Legitimacy grows when the movement looks like national liberation, not foreign control.</li>
-            </ul>
+        <div class="challenge-box" id="q3">
+          <strong>CHALLENGE: How did the Viet Minh turn their lack of trucks into an advantage?</strong>
+          <div class="options">
+            <button class="option" onclick="ans(this, true, 'q3')">By using porters and bicycles that could travel hidden trails invisible to French planes.</button>
+            <button class="option" onclick="ans(this, false, 'q3')">By training elephants to carry the heavy artillery.</button>
+            <button class="option" onclick="ans(this, false, 'q3')">By building an underground railway system from China.</button>
           </div>
-        </div>
-
-        <div class="branch">
-          <b>3) Determination & leadership</b>
-          They fought as a <span class="u" data-target="d_natl">war of national liberation</span>, sustaining morale despite losses.
-          <div class="detailBox" id="d_natl">
-            <b>3 details (expand your thinking):</b>
-            <ul>
-              <li>Clear goal (independence) strengthens resilience and willingness to continue.</li>
-              <li>High morale can offset material weakness over a long war.</li>
-              <li>Leadership frames sacrifice as meaningful, keeping the movement united.</li>
-            </ul>
-          </div>
-        </div>
-
-      </div>
-
-      <div class="bar" style="margin-top:12px;">
-        <span class="pill">→ Link to outcome</span>
-        <button class="btn" onclick="toggleArrow('a3')">Show / Hide</button>
-      </div>
-      <div class="arrow" id="a3">
-        <div class="arrowRow">
-          <div class="arrowIcon">→ Why Viet Minh won</div>
-          <div class="arrowText">
-            Viet Minh success came from fighting smarter (tactics + terrain), gaining strength from the population, and sustaining
-            determination. These strengths enabled them to isolate and defeat French forces and made the war too costly for France to continue.
+          <div class="synthesis" id="syn3">
+            <b>Dossier Analysis:</b> The Viet Minh merged <b>Nationalism</b> with <b>Socialism</b>. By promising land to those who fought, they turned every village into a logistics hub. This "People's War" made traditional military maps irrelevant.
           </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
+    <!-- SECTION 4 -->
+    <section class="section" id="s4">
+      <div class="section-head" onclick="toggleSection('s4')">
+        <h2>IV. The Geneva Settlement (1954)</h2>
+        <span class="status-badge" id="b4">UNREAD</span>
+      </div>
+      
+      <div class="section-content" style="display:none;">
+        <div class="grid">
+          <div class="intel-card">
+            <h4>Partition</h4>
+            The <span class="term" onclick="showTerm('t10')">17th Parallel</span>.
+            <div class="term-popup" id="t10">
+              <b>Tactical Reality:</b>
+              <ul>
+                <li>The country was split: Ho Chi Minh in the North (Hanoi), Bao Dai in the South (Saigon).</li>
+                <li>Meant to be a temporary military dividing line, not a permanent border.</li>
+              </ul>
+            </div>
+          </div>
+          <div class="intel-card">
+            <h4>Elections</h4>
+            The <span class="term" onclick="showTerm('t11')">1956 Mandate</span>.
+            <div class="term-popup" id="t11">
+              <b>Tactical Reality:</b>
+              <ul>
+                <li>The Accords promised national elections in two years to reunite the country.</li>
+                <li>The US and the South (under Ngo Dinh Diem) eventually refused to hold them, fearing a communist win.</li>
+              </ul>
+            </div>
+          </div>
+          <div class="intel-card">
+            <h4>Outcome</h4>
+            A <span class="term" onclick="showTerm('t12')">Fragile Peace</span>.
+            <div class="term-popup" id="t12">
+              <b>Tactical Reality:</b>
+              <ul>
+                <li>France left Indochina entirely. </li>
+                <li>The US "stepped in" to replace France as the anti-communist protector in the South.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="challenge-box" id="q4">
+          <strong>CHALLENGE: Why were the promised 1956 elections never held?</strong>
+          <div class="options">
+            <button class="option" onclick="ans(this, false, 'q4')">Ho Chi Minh died before the elections could occur.</button>
+            <button class="option" onclick="ans(this, false, 'q4')">France decided to re-invade the country in 1955.</button>
+            <button class="option" onclick="ans(this, true, 'q4')">The US and South Vietnam feared Ho Chi Minh would win a popular vote.</button>
+          </div>
+          <div class="synthesis" id="syn4">
+            <b>Dossier Analysis:</b> The Geneva Accords ended the <b>French War</b> but set the stage for the <b>American War</b>. By splitting the country and failing to hold elections, it left a "frozen conflict" that would erupt again in the 1960s.
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
 </div>
 
 <script>
-  // Toggle a main node (show/hide its 3 subpoints + arrow section)
-  function toggleNode(id){
-    const node = document.getElementById(id);
-    const branches = node.querySelector('.branches');
-    branches.style.display = (branches.style.display === 'block') ? 'none' : 'block';
+  let mode = 'learning';
+  const progress = { s1: false, s2: false, s3: false, s4: false };
+
+  function log(msg) {
+    const console = document.getElementById('console');
+    const line = document.createElement('div');
+    line.className = 'console-line';
+    line.textContent = msg;
+    console.appendChild(line);
+    console.scrollTop = console.scrollHeight;
   }
 
-  // Underlined elaborations: each one expands to exactly 3 details
-  document.addEventListener('click', (e) => {
-    const t = e.target;
-    if(t.classList && t.classList.contains('u')){
-      const box = document.getElementById(t.dataset.target);
-      if(!box) return;
-      box.style.display = (box.style.display === 'block') ? 'none' : 'block';
-    }
-  });
+  function toggleSection(id) {
+    const section = document.getElementById(id);
+    const content = section.querySelector('.section-content');
+    const isShowing = content.style.display === 'block';
+    
+    content.style.display = isShowing ? 'none' : 'block';
+    if(!isShowing) log(`Accessing file ${id.toUpperCase()}...`);
+  }
 
-  // Toggle arrow explanation (link to win/lose)
-  function toggleArrow(id){
+  function showTerm(id) {
     const el = document.getElementById(id);
-    el.style.display = (el.style.display === 'block') ? 'none' : 'block';
+    const isShowing = el.style.display === 'block';
+    el.style.display = isShowing ? 'none' : 'block';
+    if(!isShowing) log(`Cross-referencing intelligence for ${id.toUpperCase()}...`);
   }
 
-  function expandAll(){
-    document.querySelectorAll('.branches').forEach(b => b.style.display = 'block');
+  function toggleMode() {
+    const btn = document.getElementById('mode-btn');
+    const body = document.getElementById('body');
+    if (mode === 'learning') {
+      mode = 'challenge';
+      body.classList.add('challenge-mode');
+      btn.textContent = "Mode: Challenge";
+      btn.classList.add('active');
+      log("CHALLENGE MODE ACTIVE: Intelligence synthesis encrypted.");
+    } else {
+      mode = 'learning';
+      body.classList.remove('challenge-mode');
+      btn.textContent = "Mode: Learning";
+      btn.classList.remove('active');
+      log("LEARNING MODE ACTIVE: Unrestricted access to analysis.");
+    }
   }
-  function collapseAll(){
-    document.querySelectorAll('.branches').forEach(b => b.style.display = 'none');
-    document.querySelectorAll('.detailBox').forEach(d => d.style.display = 'none');
-    document.querySelectorAll('.arrow').forEach(a => a.style.display = 'none');
+
+  function ans(btn, isCorrect, qId) {
+    if (isCorrect) {
+      btn.classList.add('correct');
+      log(`Challenge ${qId.toUpperCase()} verified. Decrypting synthesis...`);
+      
+      const box = document.getElementById(qId);
+      box.classList.add('unlocked');
+      
+      const sectionId = qId.replace('q', 's');
+      const badgeId = qId.replace('q', 'b');
+      const synId = qId.replace('q', 'syn');
+      
+      progress[sectionId] = true;
+      document.getElementById(badgeId).textContent = "MASTERED";
+      document.getElementById(badgeId).classList.add('complete');
+      document.getElementById(synId).style.display = 'block';
+      
+      updateProgress();
+    } else {
+      btn.classList.add('wrong');
+      log(`UNAUTHORIZED ACCESS: Strategic error detected in ${qId.toUpperCase()}.`);
+      setTimeout(() => btn.classList.remove('wrong'), 1000);
+    }
   }
+
+  function updateProgress() {
+    const total = Object.keys(progress).length;
+    const count = Object.values(progress).filter(v => v).length;
+    const perc = (count / total) * 100;
+    document.getElementById('p-fill').style.width = perc + '%';
+    if(perc === 100) log("MISSION COMPLETE: All sectors of Indochina dossier cleared.");
+  }
+
+  function toggleAll(show) {
+    document.querySelectorAll('.section-content').forEach(c => c.style.display = show ? 'block' : 'none');
+    document.querySelectorAll('.term-popup').forEach(t => t.style.display = show ? 'block' : 'none');
+    if(mode === 'learning') {
+      document.querySelectorAll('.synthesis').forEach(s => s.style.display = show ? 'block' : 'none');
+    }
+    log(show ? "Expanding all tactical files." : "Collapsing all tactical files.");
+  }
+
+  // Prevent parent click from firing on term click
+  document.querySelectorAll('.term').forEach(t => {
+    t.addEventListener('click', (e) => e.stopPropagation());
+  });
 </script>
 
 </body>
