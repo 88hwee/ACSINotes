@@ -3,382 +3,362 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>First Indochina War — Interactive Notes</title>
+  <title>History Revision Mindmap — Vietnam (to 1954)</title>
   <style>
     :root{
-      --bg:#ffffff; --ink:#111; --muted:#666; --line:#d9d9d9; --soft:#f4f4f4;
-      --ok:#0a7a2f; --no:#b00020;
+      --ink:#111; --muted:#666; --line:#d9d9d9; --soft:#f4f4f4; --bg:#fff;
     }
-    body{font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; background:var(--bg); color:var(--ink);
-         max-width: 980px; margin: 24px auto; padding: 0 14px; line-height:1.55;}
-    h1{font-size: 1.6rem; margin: 0 0 6px;}
-    .sub{color:var(--muted); margin: 0 0 18px;}
-    .row{display:flex; gap:12px; flex-wrap:wrap; align-items:stretch;}
-    .pill{border:1px solid var(--line); border-radius: 999px; padding: 8px 12px; background:#fff; font-size:0.95rem;}
-    .card{border:1px solid var(--line); border-radius:14px; padding:14px; background:#fff; margin: 14px 0;}
-    .soft{background:var(--soft); border-radius:12px; padding:12px;}
-    details{border:1px solid var(--line); border-radius:14px; padding:10px 12px; background:#fff; margin: 12px 0;}
-    summary{cursor:pointer; font-weight:700; font-size:1.05rem; list-style:none;}
-    summary::-webkit-details-marker{display:none;}
-    .k{font-weight:700;}
-    ul{margin:8px 0 0 18px;}
-    li{margin: 6px 0;}
-    .term{border-bottom: 2px dotted #444; cursor:pointer; padding-bottom:1px;}
-    .popup{position:fixed; left:50%; top:18px; transform:translateX(-50%);
-      background:#fff; border:1px solid var(--line); border-radius:12px; padding:10px 12px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.08); max-width:min(720px,92vw); display:none; z-index: 20;}
-    .popup .t{font-weight:700; margin-bottom:4px;}
-    .popup .x{color:var(--muted); font-size:0.95rem;}
-    button{padding:8px 10px; border-radius:10px; border:1px solid #aaa; background:#fff; cursor:pointer;}
-    button:hover{background:var(--soft);}
-    .btnRow{display:flex; gap:8px; flex-wrap:wrap; margin-top:10px;}
-    .answer{display:none; margin-top:10px; padding:10px; border-radius:12px; background:var(--soft);}
-    .mcq .answer{background:#fff; border:1px solid var(--line);}
-    .good{color:var(--ok); font-weight:700;}
-    .bad{color:var(--no); font-weight:700;}
-    .mini{color:var(--muted); font-size:0.95rem;}
-    .grid2{display:grid; grid-template-columns: 1fr 1fr; gap:12px;}
-    @media (max-width: 820px){ .grid2{grid-template-columns:1fr;} }
-    textarea{width:100%; min-height: 90px; padding:10px; border-radius:12px; border:1px solid var(--line); font-family:inherit;}
-    .score{font-weight:700;}
+    body{
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background:var(--bg); color:var(--ink);
+      max-width: 1100px; margin: 24px auto; padding: 0 14px; line-height:1.55;
+    }
+    h1{font-size: 1.6rem; margin:0 0 6px;}
+    .sub{color:var(--muted); margin:0 0 18px;}
+    .bar{
+      border:1px solid var(--line); border-radius:14px; padding:12px; background:#fff; margin:14px 0;
+      display:flex; gap:10px; flex-wrap:wrap; align-items:center;
+    }
+    .pill{border:1px solid var(--line); border-radius:999px; padding:6px 10px; background:var(--soft); font-size:.95rem;}
+    .btn{padding:8px 10px; border-radius:10px; border:1px solid #aaa; background:#fff; cursor:pointer;}
+    .btn:hover{background:var(--soft);}
+
+    /* Mindmap layout */
+    .map{display:flex; flex-direction:column; gap:14px; margin-top:14px;}
+    .node{
+      border:1px solid var(--line); border-radius:16px; padding:14px; background:#fff;
+    }
+    .nodeHead{
+      display:flex; justify-content:space-between; align-items:flex-start; gap:12px; flex-wrap:wrap;
+    }
+    .title{font-weight:800; font-size:1.08rem;}
+    .mini{color:var(--muted); font-size:.95rem;}
+    .branches{
+      margin-top:10px;
+      border-top:1px solid var(--line);
+      padding-top:10px;
+      display:none;
+    }
+
+    /* Main point -> 3 subpoints */
+    .three{display:grid; grid-template-columns: 1fr 1fr 1fr; gap:10px;}
+    @media (max-width: 900px){ .three{grid-template-columns:1fr;} }
+
+    .branch{
+      background:var(--soft); border-radius:14px; padding:10px;
+      border:1px solid #eee;
+    }
+    .branch b{display:block; margin-bottom:6px;}
+    ul{margin:6px 0 0 18px;}
+    li{margin:6px 0;}
+
+    /* Underlined expandable parts */
+    .u{
+      text-decoration: underline;
+      text-decoration-thickness: 2px;
+      text-underline-offset: 3px;
+      cursor:pointer;
+      font-weight:650;
+    }
+    .detailBox{
+      display:none;
+      margin-top:8px;
+      border:1px dashed #bbb;
+      border-radius:12px;
+      padding:10px;
+      background:#fff;
+    }
+    .detailBox .mini{margin-top:4px;}
+    .detailBox ul{margin:6px 0 0 18px;}
+
+    /* Arrow explanation */
+    .arrow{
+      margin-top:10px;
+      border:1px solid var(--line);
+      border-radius:14px;
+      padding:10px;
+      background:#fff;
+      display:none;
+    }
+    .arrowRow{display:flex; gap:10px; align-items:flex-start; flex-wrap:wrap;}
+    .arrowIcon{
+      font-size:1.2rem; line-height:1;
+      padding:6px 10px; border-radius:999px; background:var(--soft); border:1px solid var(--line);
+      white-space:nowrap;
+    }
+    .arrowText{flex:1; min-width: 240px;}
+    .kbd{font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; background:var(--soft); border:1px solid var(--line); border-radius:8px; padding:2px 6px;}
   </style>
 </head>
 <body>
 
-  <h1>First Indochina War (up to 1954) — Interactive Notes</h1>
-  <p class="sub">Click key terms, test yourself with mini-checks, and reveal model answers. (Works offline. Save as <span class="k">index.html</span>.)</p>
+<h1>Vietnam (to 1954) — Revision Mindmap</h1>
+<p class="sub">
+  Click the <span class="kbd">main point</span> to show 3 sub-points. Click any <span class="u">underlined</span> part to expand 3 details.
+  At the end, open the <span class="kbd">→ Link to outcome</span> to see how it explains win/lose.
+</p>
 
-  <div class="row">
-    <div class="pill">🧠 Terms: click dotted words</div>
-    <div class="pill">✅ Checks: MCQs + short responses</div>
-    <div class="pill">📌 Progress: saved on this device</div>
-  </div>
+<div class="bar">
+  <span class="pill">Format: Main point → 3 sub-points → (click to elaborate) → Link to outcome</span>
+  <button class="btn" onclick="expandAll()">Expand all</button>
+  <button class="btn" onclick="collapseAll()">Collapse all</button>
+</div>
 
-  <!-- Progress -->
-  <div class="card">
-    <div class="k">Progress checklist</div>
-    <div class="mini">Tick as you go. Your progress saves automatically.</div>
-    <div style="margin-top:10px">
-      <label><input type="checkbox" class="chk" data-key="done_read_I"> Completed Section I</label><br>
-      <label><input type="checkbox" class="chk" data-key="done_read_II"> Completed Section II</label><br>
-      <label><input type="checkbox" class="chk" data-key="done_read_III"> Completed Section III</label><br>
-      <label><input type="checkbox" class="chk" data-key="done_checks"> Completed all quick checks</label>
-    </div>
-    <p id="pct" class="score" style="margin-top:10px"></p>
-    <div class="btnRow">
-      <button onclick="resetProgress()">Reset progress</button>
-    </div>
-  </div>
+<div class="map">
 
-  <!-- SECTION I -->
-  <details open>
-    <summary>I. Background: The Cold War Context</summary>
-
-    <div class="card">
-      <div class="k">Global Ideological Conflict</div>
-      <ul>
-        <li>The First Indochina War extended the Cold War beyond Europe as a <span class="term" data-title="Proxy war" data-def="A conflict where major powers support opposing sides indirectly (money, weapons, advisers) rather than fighting each other openly.">proxy war</span> between communist and anti-communist ideologies.</li>
-        <li>The United States was influenced by the <span class="term" data-title="Domino Theory" data-def="The belief that if one country falls to communism, neighbouring countries will follow in sequence like dominoes.">Domino Theory</span> in Southeast Asia.</li>
-        <li>This led to <span class="term" data-title="Containment" data-def="A US policy aimed at limiting the spread of communism by supporting anti-communist governments and forces.">containment</span>: providing major support to anti-communist forces to prevent communism spreading in Asia.</li>
-      </ul>
-    </div>
-
-    <div class="card">
-      <div class="k">Communist Support Networks</div>
-      <ul>
-        <li>North Vietnam received supplies, arms, and advice from the <span class="term" data-title="Soviet Union" data-def="One of the two Cold War superpowers; supported communist movements and states.">USSR</span> and <span class="term" data-title="China (PRC)" data-def="Communist China after 1949; supported North Vietnam with aid, training, and logistics.">China</span>.</li>
-        <li>Support was complicated by the <span class="term" data-title="Sino–Soviet Split" data-def="The breakdown of relations between China and the USSR, creating rivalry within the communist bloc. North Vietnam had to balance between them to keep aid flowing.">Sino–Soviet Split</span>, forcing North Vietnam into a diplomatic balancing act.</li>
-        <li>The US often interpreted the conflict through superpower influence, assuming North Vietnam acted mainly as a proxy for the USSR and China.</li>
-      </ul>
-    </div>
-
-    <!-- Quick check I -->
-    <div class="card mcq">
-      <div class="k">Quick Check (Section I)</div>
-      <p>Which statement best explains why the US became involved in Indochina?</p>
+  <!-- NODE 1 -->
+  <section class="node" id="n1">
+    <div class="nodeHead">
       <div>
-        <label><input type="radio" name="q1" value="A"> To support French culture and language in Vietnam</label><br>
-        <label><input type="radio" name="q1" value="B"> To apply containment because of the Domino Theory</label><br>
-        <label><input type="radio" name="q1" value="C"> To stop the Sino–Soviet Split</label>
+        <div class="title" onclick="toggleNode('n1')" style="cursor:pointer;">I. Cold War Context (Big Picture)</div>
+        <div class="mini">Why outside powers cared, and why the war mattered beyond Vietnam.</div>
       </div>
-      <div class="btnRow">
-        <button onclick="gradeMCQ('q1','B',this,'Containment + Domino Theory drove US policy in Southeast Asia.')">Check</button>
-        <button onclick="clearMCQ('q1',this)">Clear</button>
-      </div>
-      <div class="answer"></div>
-    </div>
-
-  </details>
-
-  <!-- SECTION II -->
-  <details>
-    <summary>II. Weaknesses of the French at Dien Bien Phu</summary>
-
-    <div class="card">
-      <div class="k">Strategic Miscalculation</div>
-      <ul>
-        <li>The French tried to lure the Viet Minh into open battle at “strongly defended bases”, assuming superior firepower would guarantee victory.</li>
-        <li>This backfired: the French became trapped in the very location meant to destroy the enemy.</li>
-        <li>The choice of a <span class="term" data-title="Valley position" data-def="A valley can be surrounded by higher ground; the enemy can place artillery above and cut off movement.">valley</span> made the base vulnerable to being surrounded and isolated.</li>
-      </ul>
-    </div>
-
-    <div class="card">
-      <div class="k">Logistical Vulnerability</div>
-      <ul>
-        <li>The Viet Minh cut French supply lines, isolating <span class="term" data-title="Dien Bien Phu" data-def="A major French base in northwest Vietnam. The French were besieged and defeated in 1954, ending serious French hopes of retaining Indochina.">Dien Bien Phu</span>.</li>
-        <li>This deprived troops of food, medical supplies, and ammunition, leading to a thorough defeat.</li>
-        <li>Without resupply, the French could not sustain the defence of their “strongly defended base”.</li>
-      </ul>
-    </div>
-
-    <div class="card">
-      <div class="k">Collapse of Political Will</div>
-      <ul>
-        <li>The defeat weakened French public and government support for maintaining Vietnam as a colony.</li>
-        <li>The cost in lives and resources outweighed perceived benefits.</li>
-        <li>This pressure pushed France towards the <span class="term" data-title="Geneva Conference (1954)" data-def="Talks that ended the First Indochina War. France agreed to withdraw; Vietnam was temporarily divided, recognising the DRV in the North.">Geneva Conference (1954)</span> and withdrawal.</li>
-      </ul>
-    </div>
-
-    <!-- Quick check II -->
-    <div class="card mcq">
-      <div class="k">Quick Check (Section II)</div>
-      <p>Why did the French “strongly defended base” strategy fail at Dien Bien Phu?</p>
       <div>
-        <label><input type="radio" name="q2" value="A"> The Viet Minh refused to fight and simply left Vietnam</label><br>
-        <label><input type="radio" name="q2" value="B"> The base was isolated and supply lines were cut, turning the French position into a trap</label><br>
-        <label><input type="radio" name="q2" value="C"> The French won militarily but chose to withdraw anyway</label>
-      </div>
-      <div class="btnRow">
-        <button onclick="gradeMCQ('q2','B',this,'Surrounded in a valley + supply lines cut = isolation and defeat.')">Check</button>
-        <button onclick="clearMCQ('q2',this)">Clear</button>
-      </div>
-      <div class="answer"></div>
-    </div>
-
-    <!-- Mini writing -->
-    <div class="card">
-      <div class="k">Mini Task (2–3 sentences)</div>
-      <p class="mini">Explain how <span class="k">geography</span> contributed to the French defeat at Dien Bien Phu.</p>
-      <textarea id="geoAns" placeholder="Write your answer here..."></textarea>
-      <div class="btnRow">
-        <button onclick="saveText('geoAns')">Save</button>
-        <button onclick="toggleReveal('geoModel',this)">Reveal model answer</button>
-        <button onclick="clearText('geoAns')">Clear</button>
-      </div>
-      <div id="geoModel" class="answer">
-        <span class="good">Model:</span> The French chose a valley base, which allowed the Viet Minh to occupy higher ground around it. From the surrounding hills, the Viet Minh could bombard the base and cut off supply routes, isolating the French and turning their “strongly defended base” into a trap.
+        <button class="btn" onclick="toggleNode('n1')">Show / Hide</button>
       </div>
     </div>
 
-  </details>
+    <div class="branches">
+      <div class="three">
 
-  <!-- SECTION III -->
-  <details>
-    <summary>III. Strengths of the North Vietnamese (Viet Minh)</summary>
+        <div class="branch">
+          <b>1) Global ideological conflict</b>
+          <div>
+            The war became a <span class="u" data-target="d_proxy">proxy conflict</span> between communism and anti-communism.
+            <div class="detailBox" id="d_proxy">
+              <b>3 details (expand your thinking):</b>
+              <ul>
+                <li>Both sides received outside support (money, weapons, advice) rather than superpowers fighting directly.</li>
+                <li>This turned a local independence struggle into an international ideological contest.</li>
+                <li>Success or failure affected global prestige: “Which system looks stronger?”</li>
+              </ul>
+            </div>
+          </div>
+        </div>
 
-    <div class="card">
-      <div class="k">Effective Guerrilla Tactics</div>
-      <ul>
-        <li>Despite inferior equipment, the Viet Minh used <span class="term" data-title="Guerrilla warfare" data-def="Small, mobile attacks (ambushes, sabotage) instead of open battles; relies on local knowledge and surprise.">guerrilla warfare</span> to avoid conventional battles.</li>
-        <li>They used extensive hidden tunnel networks to move supplies, shelter, and launch surprise attacks.</li>
-        <li>They were battle-hardened and used terrain to neutralise stronger enemies.</li>
-      </ul>
+        <div class="branch">
+          <b>2) US thinking</b>
+          The US was influenced by the <span class="u" data-target="d_domino">Domino Theory</span>.
+          <div class="detailBox" id="d_domino">
+            <b>3 details (expand your thinking):</b>
+            <ul>
+              <li>US leaders feared a chain reaction across Southeast Asia (Vietnam → Laos/Cambodia → Thailand/Malaya etc.).</li>
+              <li>This made Vietnam feel “strategic”, even if Americans knew little about local nationalism.</li>
+              <li>It encouraged earlier, deeper involvement to stop communism “before it spreads”.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="branch">
+          <b>3) Containment policy</b>
+          The US pursued <span class="u" data-target="d_contain">containment through support</span> to anti-communist forces.
+          <div class="detailBox" id="d_contain">
+            <b>3 details (expand your thinking):</b>
+            <ul>
+              <li>Support was financial and military: equipment, training, and aid to keep anti-communists afloat.</li>
+              <li>Containment assumed communism spreads if not actively resisted.</li>
+              <li>It pushed the conflict towards “Cold War logic”, not just Vietnamese realities.</li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="bar" style="margin-top:12px;">
+        <span class="pill">→ Link to outcome</span>
+        <button class="btn" onclick="toggleArrow('a1')">Show / Hide</button>
+      </div>
+      <div class="arrow" id="a1">
+        <div class="arrowRow">
+          <div class="arrowIcon">→ Outcome link</div>
+          <div class="arrowText">
+            Cold War thinking increased the stakes and outside involvement. This did <b>not</b> automatically win the war for France,
+            but it shaped how the US interpreted Viet Minh success (as communism expanding) and set the stage for greater US involvement
+            after 1954.
+          </div>
+        </div>
+      </div>
     </div>
+  </section>
 
-    <div class="card">
-      <div class="k">Popular Support and Mobilisation</div>
-      <ul>
-        <li>Ho Chi Minh stressed winning the population’s support; forces were instructed to respect and help peasants.</li>
-        <li>This made operations in the countryside effective because fighters could blend with local communities.</li>
-        <li>Ideologies were difficult to impose via unpopular governments if local resistance and support networks were strong.</li>
-      </ul>
-    </div>
-
-    <div class="card">
-      <div class="k">Determination and Leadership</div>
-      <ul>
-        <li>The Viet Minh framed the war as national liberation, boosting morale and resilience.</li>
-        <li>They were prepared to accept extremely high losses to remove foreign powers and achieve independence.</li>
-      </ul>
-    </div>
-
-    <!-- Quick check III -->
-    <div class="card mcq">
-      <div class="k">Quick Check (Section III)</div>
-      <p>Which combination best explains Viet Minh success?</p>
+  <!-- NODE 2 -->
+  <section class="node" id="n2">
+    <div class="nodeHead">
       <div>
-        <label><input type="radio" name="q3" value="A"> Heavy tanks + air superiority</label><br>
-        <label><input type="radio" name="q3" value="B"> Guerrilla tactics + popular support + determination</label><br>
-        <label><input type="radio" name="q3" value="C"> French support from the USSR</label>
+        <div class="title" onclick="toggleNode('n2')" style="cursor:pointer;">II. French Weaknesses at Dien Bien Phu</div>
+        <div class="mini">How French decisions + vulnerabilities produced defeat.</div>
       </div>
-      <div class="btnRow">
-        <button onclick="gradeMCQ('q3','B',this,'They compensated for weaker equipment through tactics, local support, and high morale.')">Check</button>
-        <button onclick="clearMCQ('q3',this)">Clear</button>
-      </div>
-      <div class="answer"></div>
-    </div>
-
-    <!-- Model paragraph: judgement -->
-    <div class="card">
-      <div class="k">Judgement paragraph (attempt → reveal)</div>
-      <p class="mini">Question: <span class="k">“French weaknesses were more important than Viet Minh strengths in explaining the 1954 outcome.”</span> How far do you agree?</p>
-      <textarea id="judgementAns" placeholder="Write your answer (4–6 lines). Try: Point → Evidence → Explain → Link → Balance."></textarea>
-      <div class="btnRow">
-        <button onclick="saveText('judgementAns')">Save</button>
-        <button onclick="toggleReveal('judgementModel',this)">Reveal model paragraph</button>
-        <button onclick="clearText('judgementAns')">Clear</button>
-      </div>
-      <div id="judgementModel" class="answer">
-        <span class="good">Model:</span> I agree to a large extent that French weaknesses were crucial, because Dien Bien Phu exposed major strategic and logistical failures. By choosing a valley base and underestimating the Viet Minh, the French allowed themselves to be surrounded and cut off from supplies, which made defeat almost inevitable. However, Viet Minh strengths also mattered: guerrilla tactics, popular support, and determination enabled them to sustain pressure, isolate French forces, and accept heavy losses for victory. Overall, French errors created the opportunity, but Viet Minh capability and resolve ensured the French could not recover.
+      <div>
+        <button class="btn" onclick="toggleNode('n2')">Show / Hide</button>
       </div>
     </div>
 
-  </details>
+    <div class="branches">
+      <div class="three">
 
-  <!-- Popup -->
-  <div id="popup" class="popup" role="dialog" aria-live="polite">
-    <div class="t" id="popTitle"></div>
-    <div id="popDef"></div>
-    <div class="x" style="margin-top:6px;">Click anywhere to close.</div>
-  </div>
+        <div class="branch">
+          <b>1) Strategic miscalculation</b>
+          They chose a <span class="u" data-target="d_valley">valley base strategy</span>, assuming firepower would guarantee victory.
+          <div class="detailBox" id="d_valley">
+            <b>3 details (expand your thinking):</b>
+            <ul>
+              <li>A valley invites encirclement: the enemy can occupy higher ground around you.</li>
+              <li>It turns your “fortress” into a trap if you cannot break out.</li>
+              <li>It underestimates enemy adaptability (e.g., moving artillery, sustaining a siege).</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="branch">
+          <b>2) Logistical vulnerability</b>
+          The Viet Minh <span class="u" data-target="d_supply">cut supply lines</span>, isolating the French and draining essentials.
+          <div class="detailBox" id="d_supply">
+            <b>3 details (expand your thinking):</b>
+            <ul>
+              <li>No steady flow of food, medicine, and ammunition undermines any defensive position.</li>
+              <li>Morale collapses when casualties rise and evacuation/resupply fails.</li>
+              <li>Isolation increases dependence on air supply—which can be disrupted.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="branch">
+          <b>3) Collapse of political will</b>
+          Defeat created domestic pressure and pushed France into <span class="u" data-target="d_geneva">Geneva (1954)</span>.
+          <div class="detailBox" id="d_geneva">
+            <b>3 details (expand your thinking):</b>
+            <ul>
+              <li>Public support falls when a war looks unwinnable and expensive.</li>
+              <li>Governments retreat when costs outweigh benefits (resources + lives).</li>
+              <li>Negotiations become the “exit route” when military victory is no longer credible.</li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="bar" style="margin-top:12px;">
+        <span class="pill">→ Link to outcome</span>
+        <button class="btn" onclick="toggleArrow('a2')">Show / Hide</button>
+      </div>
+      <div class="arrow" id="a2">
+        <div class="arrowRow">
+          <div class="arrowIcon">→ Why France lost</div>
+          <div class="arrowText">
+            The French created conditions for defeat: a vulnerable position + isolation meant they could not sustain defence.
+            Once Dien Bien Phu fell, French political will weakened, making withdrawal and negotiation far more likely.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- NODE 3 -->
+  <section class="node" id="n3">
+    <div class="nodeHead">
+      <div>
+        <div class="title" onclick="toggleNode('n3')" style="cursor:pointer;">III. Viet Minh Strengths (North Vietnamese)</div>
+        <div class="mini">How tactics, support, and determination produced victory.</div>
+      </div>
+      <div>
+        <button class="btn" onclick="toggleNode('n3')">Show / Hide</button>
+      </div>
+    </div>
+
+    <div class="branches">
+      <div class="three">
+
+        <div class="branch">
+          <b>1) Effective tactics</b>
+          They used <span class="u" data-target="d_guer">guerrilla and siege methods</span> to beat better-equipped forces.
+          <div class="detailBox" id="d_guer">
+            <b>3 details (expand your thinking):</b>
+            <ul>
+              <li>Avoided open battles when disadvantaged; chose when/where to fight.</li>
+              <li>Used terrain to disrupt and exhaust the enemy over time.</li>
+              <li>Turned battles into wars of endurance (wearing down supply + morale).</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="branch">
+          <b>2) Popular support</b>
+          Ho Chi Minh prioritised <span class="u" data-target="d_people">mobilising the population</span>.
+          <div class="detailBox" id="d_people">
+            <b>3 details (expand your thinking):</b>
+            <ul>
+              <li>Local support provides food, intelligence, shelter, and recruits.</li>
+              <li>It becomes hard for opponents to identify fighters from civilians.</li>
+              <li>Legitimacy grows when the movement looks like national liberation, not foreign control.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="branch">
+          <b>3) Determination & leadership</b>
+          They fought as a <span class="u" data-target="d_natl">war of national liberation</span>, sustaining morale despite losses.
+          <div class="detailBox" id="d_natl">
+            <b>3 details (expand your thinking):</b>
+            <ul>
+              <li>Clear goal (independence) strengthens resilience and willingness to continue.</li>
+              <li>High morale can offset material weakness over a long war.</li>
+              <li>Leadership frames sacrifice as meaningful, keeping the movement united.</li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="bar" style="margin-top:12px;">
+        <span class="pill">→ Link to outcome</span>
+        <button class="btn" onclick="toggleArrow('a3')">Show / Hide</button>
+      </div>
+      <div class="arrow" id="a3">
+        <div class="arrowRow">
+          <div class="arrowIcon">→ Why Viet Minh won</div>
+          <div class="arrowText">
+            Viet Minh success came from fighting smarter (tactics + terrain), gaining strength from the population, and sustaining
+            determination. These strengths enabled them to isolate and defeat French forces and made the war too costly for France to continue.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>
 
 <script>
-  // --- Term popup ---
-  const popup = document.getElementById('popup');
-  const popTitle = document.getElementById('popTitle');
-  const popDef = document.getElementById('popDef');
+  // Toggle a main node (show/hide its 3 subpoints + arrow section)
+  function toggleNode(id){
+    const node = document.getElementById(id);
+    const branches = node.querySelector('.branches');
+    branches.style.display = (branches.style.display === 'block') ? 'none' : 'block';
+  }
 
+  // Underlined elaborations: each one expands to exactly 3 details
   document.addEventListener('click', (e) => {
     const t = e.target;
-    if (t.classList && t.classList.contains('term')) {
-      popTitle.textContent = t.dataset.title || 'Key term';
-      popDef.textContent = t.dataset.def || '';
-      popup.style.display = 'block';
-      return;
+    if(t.classList && t.classList.contains('u')){
+      const box = document.getElementById(t.dataset.target);
+      if(!box) return;
+      box.style.display = (box.style.display === 'block') ? 'none' : 'block';
     }
-    // Close when clicking outside a term
-    if (popup.style.display === 'block') popup.style.display = 'none';
   });
 
-  // --- MCQ grading ---
-  function gradeMCQ(qName, correct, btn, explain){
-    const chosen = document.querySelector(`input[name="${qName}"]:checked`);
-    const box = btn.closest('.card').querySelector('.answer');
-    box.style.display = 'block';
-    if(!chosen){
-      box.innerHTML = `<span class="bad">Pick an option first.</span>`;
-      return;
-    }
-    if(chosen.value === correct){
-      box.innerHTML = `<span class="good">✅ Correct.</span> <span class="mini">${escapeHTML(explain||'')}</span>`;
-    }else{
-      box.innerHTML = `<span class="bad">❌ Not quite.</span> <span class="mini">Try again, then check the notes above.</span>`;
-    }
-    // If all 3 MCQs are correct at least once, mark checks done (simple approach: save a flag per q if correct)
-    if(chosen.value === correct){
-      localStorage.setItem(`mcq_${qName}_correct`, '1');
-      checkAllMCQs();
-    }
-  }
-
-  function clearMCQ(qName, btn){
-    document.querySelectorAll(`input[name="${qName}"]`).forEach(r => r.checked = false);
-    const box = btn.closest('.card').querySelector('.answer');
-    box.style.display = 'none';
-    box.textContent = '';
-  }
-
-  function checkAllMCQs(){
-    const ok1 = localStorage.getItem('mcq_q1_correct') === '1';
-    const ok2 = localStorage.getItem('mcq_q2_correct') === '1';
-    const ok3 = localStorage.getItem('mcq_q3_correct') === '1';
-    if(ok1 && ok2 && ok3){
-      // auto-tick "Completed all quick checks"
-      const checksBox = document.querySelector(`.chk[data-key="done_checks"]`);
-      if(checksBox){
-        checksBox.checked = true;
-        localStorage.setItem('done_checks', '1');
-        updateProgress();
-      }
-    }
-  }
-
-  // --- Reveal boxes ---
-  function toggleReveal(id, btn){
+  // Toggle arrow explanation (link to win/lose)
+  function toggleArrow(id){
     const el = document.getElementById(id);
-    if(!el) return;
     el.style.display = (el.style.display === 'block') ? 'none' : 'block';
   }
 
-  // --- Save/clear textarea ---
-  function saveText(id){
-    const el = document.getElementById(id);
-    if(!el) return;
-    localStorage.setItem(`text_${id}`, el.value);
+  function expandAll(){
+    document.querySelectorAll('.branches').forEach(b => b.style.display = 'block');
   }
-  function clearText(id){
-    const el = document.getElementById(id);
-    if(!el) return;
-    el.value = '';
-    localStorage.removeItem(`text_${id}`);
+  function collapseAll(){
+    document.querySelectorAll('.branches').forEach(b => b.style.display = 'none');
+    document.querySelectorAll('.detailBox').forEach(d => d.style.display = 'none');
+    document.querySelectorAll('.arrow').forEach(a => a.style.display = 'none');
   }
-
-  // --- Progress saving ---
-  const chks = document.querySelectorAll('.chk');
-
-  function updateProgress(){
-    const done = [...chks].filter(c => c.checked).length;
-    document.getElementById('pct').textContent = `Completed: ${done}/${chks.length}`;
-  }
-
-  chks.forEach(c => {
-    const key = c.dataset.key;
-    // load
-    const saved = localStorage.getItem(key);
-    if(saved === '1') c.checked = true;
-    c.addEventListener('change', () => {
-      localStorage.setItem(key, c.checked ? '1' : '0');
-      updateProgress();
-    });
-  });
-
-  function resetProgress(){
-    // checkboxes
-    chks.forEach(c => {
-      localStorage.removeItem(c.dataset.key);
-      c.checked = false;
-    });
-    // MCQs
-    ['q1','q2','q3'].forEach(q => localStorage.removeItem(`mcq_${q}_correct`));
-    // textareas
-    ['geoAns','judgementAns'].forEach(id => localStorage.removeItem(`text_${id}`));
-    document.getElementById('geoAns').value = '';
-    document.getElementById('judgementAns').value = '';
-    // hide answers
-    document.querySelectorAll('.answer').forEach(a => { a.style.display = 'none'; a.textContent=''; });
-    updateProgress();
-  }
-
-  // --- Load saved textareas ---
-  function loadText(id){
-    const el = document.getElementById(id);
-    if(!el) return;
-    const v = localStorage.getItem(`text_${id}`);
-    if(v !== null) el.value = v;
-  }
-
-  // --- Utility ---
-  function escapeHTML(str){
-    return String(str).replace(/[&<>"']/g, s => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[s]));
-  }
-
-  // init
-  loadText('geoAns');
-  loadText('judgementAns');
-  updateProgress();
-  checkAllMCQs();
 </script>
 
 </body>
