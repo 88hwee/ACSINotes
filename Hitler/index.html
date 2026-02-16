@@ -1,0 +1,606 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Rise of Hitler — Revision Mindmap + Exam Builder</title>
+  <style>
+    :root{--ink:#111;--muted:#666;--line:#d9d9d9;--soft:#f4f4f4;--bg:#fff;}
+    body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:var(--bg);color:var(--ink);
+      max-width:1100px;margin:24px auto;padding:0 14px;line-height:1.55;}
+    h1{font-size:1.6rem;margin:0 0 6px;}
+    .sub{color:var(--muted);margin:0 0 18px;}
+    .bar{border:1px solid var(--line);border-radius:14px;padding:12px;background:#fff;margin:14px 0;
+      display:flex;gap:10px;flex-wrap:wrap;align-items:center;}
+    .pill{border:1px solid var(--line);border-radius:999px;padding:6px 10px;background:var(--soft);font-size:.95rem;}
+    .btn{padding:8px 10px;border-radius:10px;border:1px solid #aaa;background:#fff;cursor:pointer;}
+    .btn:hover{background:var(--soft);}
+    .map{display:flex;flex-direction:column;gap:14px;margin-top:14px;}
+    .node{border:1px solid var(--line);border-radius:16px;padding:14px;background:#fff;}
+    .nodeHead{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap;}
+    .title{font-weight:800;font-size:1.08rem;}
+    .mini{color:var(--muted);font-size:.95rem;}
+    .branches{margin-top:10px;border-top:1px solid var(--line);padding-top:10px;display:none;}
+    .three{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;}
+    @media (max-width: 900px){.three{grid-template-columns:1fr;}}
+    .branch{background:var(--soft);border-radius:14px;padding:10px;border:1px solid #eee;}
+    .branch b{display:block;margin-bottom:6px;}
+    ul{margin:6px 0 0 18px;}
+    li{margin:6px 0;}
+    .u{text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:3px;cursor:pointer;font-weight:650;}
+    .detailBox{display:none;margin-top:8px;border:1px dashed #bbb;border-radius:12px;padding:10px;background:#fff;}
+    .detailBox ul{margin:6px 0 0 18px;}
+    .arrow{margin-top:10px;border:1px solid var(--line);border-radius:14px;padding:10px;background:#fff;display:none;}
+    .arrowRow{display:flex;gap:10px;align-items:flex-start;flex-wrap:wrap;}
+    .arrowIcon{font-size:1.2rem;line-height:1;padding:6px 10px;border-radius:999px;background:var(--soft);
+      border:1px solid var(--line);white-space:nowrap;}
+    .arrowText{flex:1;min-width:240px;}
+    .kbd{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;background:var(--soft);border:1px solid var(--line);
+      border-radius:8px;padding:2px 6px;}
+    .hr{height:1px;background:var(--line);margin:10px 0;}
+
+    /* Exam builder */
+    .builder{border:2px solid #0000; border-radius:16px;}
+    .grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+    @media (max-width: 900px){.grid2{grid-template-columns:1fr;}}
+    .panel{border:1px solid var(--line);border-radius:14px;padding:12px;background:#fff;}
+    select, textarea, input{
+      width:100%; padding:10px; border-radius:12px; border:1px solid var(--line); font-family:inherit; font-size:1rem;
+      background:#fff;
+    }
+    textarea{min-height:120px;}
+    .out{white-space:pre-wrap; background:var(--soft); border:1px solid var(--line); border-radius:14px; padding:12px;}
+    .small{font-size:.93rem; color:var(--muted);}
+    .tag{display:inline-block; padding:3px 8px; border-radius:999px; border:1px solid var(--line); background:var(--soft); font-size:.9rem;}
+    .warn{border-left:4px solid #999; padding-left:10px;}
+  </style>
+</head>
+<body>
+
+<h1>Rise of Hitler — Revision Mindmap + Exam Builder</h1>
+<p class="sub">
+  Mindmap: Main point → 3 sub-points → <span class="u">click to elaborate (3 details)</span> → Outcome arrow.<br>
+  Exam Builder (bottom): <span class="kbd">Two sides + 4 specific examples</span> + <span class="kbd">Bonus: evaluate given factor vs another factor</span>.
+</p>
+
+<div class="bar">
+  <span class="pill">You can keep this as a single index.html</span>
+  <button class="btn" onclick="expandAll()">Expand all</button>
+  <button class="btn" onclick="collapseAll()">Collapse all</button>
+  <button class="btn" onclick="document.getElementById('exam').scrollIntoView({behavior:'smooth'})">Go to Exam Builder</button>
+</div>
+
+<!-- ===================== MINDMAP (same structure) ===================== -->
+<div class="map">
+
+  <section class="node" id="n1">
+    <div class="nodeHead">
+      <div>
+        <div class="title" onclick="toggleNode('n1')" style="cursor:pointer;">A. Weakness of the Weimar Republic</div>
+        <div class="mini">Created the “problem” → Nazis sold themselves as the “solution”.</div>
+      </div>
+      <div><button class="btn" onclick="toggleNode('n1')">Show / Hide</button></div>
+    </div>
+    <div class="branches">
+      <div class="three">
+        <div class="branch">
+          <b>1) Political instability</b>
+          Coalition governments made democracy look <span class="u" data-target="d_fragile">ineffective</span>.
+          <div class="detailBox" id="d_fragile">
+            <b>3 details:</b>
+            <ul>
+              <li>Frequent government changes suggested “no one is in charge”.</li>
+              <li>Extremists gained support by promising decisive action.</li>
+              <li>People grew willing to accept less democratic solutions.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="branch">
+          <b>2) Economic crises</b>
+          Hyperinflation + <span class="u" data-target="d_gd">Great Depression</span> destroyed trust.
+          <div class="detailBox" id="d_gd">
+            <b>3 details:</b>
+            <ul>
+              <li>Mass unemployment pushed voters towards radical parties.</li>
+              <li>Mainstream parties were blamed for failing to deliver stability.</li>
+              <li>Nazi promises of jobs and recovery sounded convincing.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="branch">
+          <b>3) Treaty of Versailles resentment</b>
+          Treaty seen as <span class="u" data-target="d_tov">humiliation</span>.
+          <div class="detailBox" id="d_tov">
+            <b>3 details:</b>
+            <ul>
+              <li>War guilt + reparations created anger and bitterness.</li>
+              <li>Weimar leaders labelled “November Criminals”.</li>
+              <li>Nationalists backed parties promising to overturn it.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="bar" style="margin-top:12px;">
+        <span class="pill">→ Link to outcome</span>
+        <button class="btn" onclick="toggleArrow('a1')">Show / Hide</button>
+      </div>
+      <div class="arrow" id="a1">
+        <div class="arrowRow">
+          <div class="arrowIcon">→ Why Nazis rose</div>
+          <div class="arrowText">
+            Weimar weaknesses produced fear, anger, and desperation. Nazis exploited these conditions by promising stability,
+            jobs, and restored pride—turning crisis into votes.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="node" id="n2">
+    <div class="nodeHead">
+      <div>
+        <div class="title" onclick="toggleNode('n2')" style="cursor:pointer;">B. Hitler and Nazi Strengths</div>
+        <div class="mini">How the Nazis converted discontent into real political power.</div>
+      </div>
+      <div><button class="btn" onclick="toggleNode('n2')">Show / Hide</button></div>
+    </div>
+    <div class="branches">
+      <div class="three">
+        <div class="branch">
+          <b>1) Hitler’s charisma</b>
+          Presented himself as a <span class="u" data-target="d_saviour">strong saviour</span>.
+          <div class="detailBox" id="d_saviour">
+            <b>3 details:</b>
+            <ul>
+              <li>Simple, confident answers during uncertainty.</li>
+              <li>Contrasted sharply with coalition indecision.</li>
+              <li>Mass rallies spread message and loyalty quickly.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="branch">
+          <b>2) Reorganisation after 1923</b>
+          Shifted to <span class="u" data-target="d_legal">legal takeover</span> and grassroots structure.
+          <div class="detailBox" id="d_legal">
+            <b>3 details:</b>
+            <ul>
+              <li>Built local party networks across Germany.</li>
+              <li>Centralised leadership under Hitler improved discipline.</li>
+              <li>Propaganda became systematic and targeted.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="branch">
+          <b>3) SA intimidation</b>
+          Projected <span class="u" data-target="d_fear">strength + fear</span>.
+          <div class="detailBox" id="d_fear">
+            <b>3 details:</b>
+            <ul>
+              <li>Protected Nazi rallies; disrupted opponents’ meetings.</li>
+              <li>Made Nazis look like “order” amid chaos.</li>
+              <li>Reduced opposition space through intimidation.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="bar" style="margin-top:12px;">
+        <span class="pill">→ Link to outcome</span>
+        <button class="btn" onclick="toggleArrow('a2')">Show / Hide</button>
+      </div>
+      <div class="arrow" id="a2">
+        <div class="arrowRow">
+          <div class="arrowIcon">→ How Nazis gained traction</div>
+          <div class="arrowText">
+            Nazi methods (propaganda + leadership image + intimidation) turned social anger into mass support, weakening opponents
+            and helping the party become a major electoral force.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="node" id="n3">
+    <div class="nodeHead">
+      <div>
+        <div class="title" onclick="toggleNode('n3')" style="cursor:pointer;">C. Great Depression — Catalyst + Evidence</div>
+        <div class="mini">Use elections as evidence: 1928 (fringe) → 1932 (largest party).</div>
+      </div>
+      <div><button class="btn" onclick="toggleNode('n3')">Show / Hide</button></div>
+    </div>
+    <div class="branches">
+      <div class="three">
+        <div class="branch">
+          <b>1) Economic shock</b>
+          Mass <span class="u" data-target="d_unemp">unemployment</span> and insecurity.
+          <div class="detailBox" id="d_unemp">
+            <b>3 details:</b>
+            <ul>
+              <li>Business failures + wage cuts + poverty.</li>
+              <li>Mainstream parties blamed for helplessness.</li>
+              <li>Extremists offered “radical fix” narratives.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="branch">
+          <b>2) Election contrast</b>
+          <span class="u" data-target="d_1928_1932">1928 → 1932</span> shows crisis-driven swing.
+          <div class="detailBox" id="d_1928_1932">
+            <b>3 details:</b>
+            <ul>
+              <li>1928: low support during relative stability.</li>
+              <li>1932: surge as the crisis deepened.</li>
+              <li>Shows depression created a mass audience for Nazism.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="branch">
+          <b>3) Not the only factor</b>
+          Nazis needed <span class="u" data-target="d_convert">tools to convert anger</span> into power.
+          <div class="detailBox" id="d_convert">
+            <b>3 details:</b>
+            <ul>
+              <li>Charisma and propaganda made promises believable.</li>
+              <li>Organisation mobilised support nationwide.</li>
+              <li>SA intimidation weakened resistance.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="bar" style="margin-top:12px;">
+        <span class="pill">→ Link to outcome</span>
+        <button class="btn" onclick="toggleArrow('a3')">Show / Hide</button>
+      </div>
+      <div class="arrow" id="a3">
+        <div class="arrowRow">
+          <div class="arrowIcon">→ Judgement link</div>
+          <div class="arrowText">
+            The Great Depression was the key catalyst, but Nazi strategy and Hitler’s leadership were decisive in turning crisis
+            into sustained political dominance.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="node" id="n4">
+    <div class="nodeHead">
+      <div>
+        <div class="title" onclick="toggleNode('n4')" style="cursor:pointer;">D. Road to Dictatorship (1933–1934)</div>
+        <div class="mini">Emergency → law → elimination of rivals → total authority.</div>
+      </div>
+      <div><button class="btn" onclick="toggleNode('n4')">Show / Hide</button></div>
+    </div>
+    <div class="branches">
+      <div class="three">
+        <div class="branch">
+          <b>1) Reichstag Fire → repression</b>
+          Used as <span class="u" data-target="d_fire">pretext</span> to crush opposition.
+          <div class="detailBox" id="d_fire">
+            <b>3 details:</b>
+            <ul>
+              <li>Emergency powers reduced civil liberties.</li>
+              <li>Opponents arrested; fear increased.</li>
+              <li>Opposition weakened before major votes.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="branch">
+          <b>2) Enabling Act → rule by decree</b>
+          Hitler could <span class="u" data-target="d_enable">make laws without parliament</span>.
+          <div class="detailBox" id="d_enable">
+            <b>3 details:</b>
+            <ul>
+              <li>Parliament sidelined; democracy ended.</li>
+              <li>Legal basis for dismantling remaining checks.</li>
+              <li>Allowed rapid transformation into a totalitarian state.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="branch">
+          <b>3) Night of the Long Knives + Army oath</b>
+          Secured <span class="u" data-target="d_army">military loyalty</span> and removed threats.
+          <div class="detailBox" id="d_army">
+            <b>3 details:</b>
+            <ul>
+              <li>Purged SA leadership and enemies, removing internal rivals.</li>
+              <li>Army reassured and more willing to support Hitler.</li>
+              <li>Personal oath reduced chances of military resistance.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="bar" style="margin-top:12px;">
+        <span class="pill">→ Link to outcome</span>
+        <button class="btn" onclick="toggleArrow('a4')">Show / Hide</button>
+      </div>
+      <div class="arrow" id="a4">
+        <div class="arrowRow">
+          <div class="arrowIcon">→ Why dictatorship succeeded</div>
+          <div class="arrowText">
+            Hitler combined legal authority (Enabling Act) with fear (Fire repression) and force (purges + army loyalty), removing
+            opposition and checks to become sole ruler by 1934.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<!-- ===================== EXAM BUILDER ===================== -->
+<section class="node builder" id="exam">
+  <div class="nodeHead">
+    <div>
+      <div class="title">Exam Builder (Two sides + 4 examples + Bonus evaluation)</div>
+      <div class="mini">Pick a <b>given factor</b> and a <b>comparison factor</b>. Then choose <b>2 examples per side</b> (total 4). Generate an answer frame.</div>
+    </div>
+  </div>
+
+  <div class="branches" style="display:block;">
+    <div class="grid2">
+
+      <div class="panel">
+        <div class="tag">Step 1</div>
+        <p class="mini"><b>Question focus</b> (the factor in the question):</p>
+        <select id="given" onchange="updateExamples()">
+          <option value="Weimar weaknesses">Weaknesses of the Weimar Republic</option>
+          <option value="Great Depression">Great Depression</option>
+          <option value="Hitler charisma">Hitler’s charisma</option>
+          <option value="Nazi reorganisation">Reorganisation of the Nazi Party</option>
+          <option value="Anti-TOV appeal">Appeal against the Treaty of Versailles</option>
+          <option value="SA intimidation">Use of the SA / intimidation</option>
+          <option value="Reichstag Fire">Reichstag Fire</option>
+          <option value="Enabling Act">Enabling Act</option>
+          <option value="Night of the Long Knives">Night of the Long Knives</option>
+          <option value="Army oath">Army swearing allegiance</option>
+        </select>
+
+        <p class="mini"><b>Comparison factor</b> (what you evaluate against):</p>
+        <select id="other" onchange="updateExamples()">
+          <option value="Great Depression">Great Depression</option>
+          <option value="Weimar weaknesses">Weaknesses of the Weimar Republic</option>
+          <option value="Hitler charisma">Hitler’s charisma</option>
+          <option value="Nazi reorganisation">Reorganisation of the Nazi Party</option>
+          <option value="Anti-TOV appeal">Appeal against the Treaty of Versailles</option>
+          <option value="SA intimidation">Use of the SA / intimidation</option>
+          <option value="Reichstag Fire">Reichstag Fire</option>
+          <option value="Enabling Act">Enabling Act</option>
+          <option value="Night of the Long Knives">Night of the Long Knives</option>
+          <option value="Army oath">Army swearing allegiance</option>
+        </select>
+
+        <p class="small warn">Tip: for “Rise of Hitler” questions, comparison is often <b>Great Depression vs another factor</b>, or <b>Weimar weaknesses vs Nazi strengths</b>.</p>
+      </div>
+
+      <div class="panel">
+        <div class="tag">Step 2</div>
+        <p class="mini"><b>Choose 2 specific examples</b> to support the given factor (Side A):</p>
+        <select id="a1"></select>
+        <select id="a2" style="margin-top:8px;"></select>
+
+        <div class="hr"></div>
+
+        <p class="mini"><b>Choose 2 specific examples</b> to support the comparison factor (Side B):</p>
+        <select id="b1"></select>
+        <select id="b2" style="margin-top:8px;"></select>
+
+        <div class="hr"></div>
+        <p class="mini"><b>Your final judgement</b> (who is more important?):</p>
+        <select id="judge">
+          <option value="given">Given factor is more important</option>
+          <option value="other">Comparison factor is more important</option>
+          <option value="both">Both are important (balanced)</option>
+        </select>
+
+        <p class="mini"><b>Why?</b> (one-liner):</p>
+        <input id="why" placeholder="e.g., It created mass support, while the other only explains how Nazis converted support." />
+      </div>
+
+    </div>
+
+    <div class="panel" style="margin-top:12px;">
+      <div class="tag">Step 3</div>
+      <p class="mini"><b>Generate your exam response frame</b> (two sides + 4 examples + bonus evaluation):</p>
+      <div class="bar" style="margin:10px 0;">
+        <button class="btn" onclick="generate()">Generate answer</button>
+        <button class="btn" onclick="copyOut()">Copy</button>
+        <button class="btn" onclick="clearOut()">Clear</button>
+      </div>
+      <div class="out" id="out">Your answer will appear here.</div>
+      <p class="small">Use this as your Level 3 structure: 2-sided argument with <b>4 specific examples</b>, then <b>Bonus</b> evaluating the given factor against another factor.</p>
+    </div>
+
+  </div>
+</section>
+
+<script>
+  // Mindmap toggles
+  function toggleNode(id){
+    const node = document.getElementById(id);
+    const branches = node.querySelector('.branches');
+    branches.style.display = (branches.style.display === 'block') ? 'none' : 'block';
+  }
+  document.addEventListener('click', (e) => {
+    const t = e.target;
+    if(t.classList && t.classList.contains('u')){
+      const box = document.getElementById(t.dataset.target);
+      if(!box) return;
+      box.style.display = (box.style.display === 'block') ? 'none' : 'block';
+    }
+  });
+  function toggleArrow(id){
+    const el = document.getElementById(id);
+    el.style.display = (el.style.display === 'block') ? 'none' : 'block';
+  }
+  function expandAll(){ document.querySelectorAll('.branches').forEach(b => b.style.display = 'block'); }
+  function collapseAll(){
+    document.querySelectorAll('.branches').forEach(b => b.style.display = 'none');
+    document.querySelectorAll('.detailBox').forEach(d => d.style.display = 'none');
+    document.querySelectorAll('.arrow').forEach(a => a.style.display = 'none');
+    document.querySelector('#exam .branches').style.display = 'block'; // keep builder visible
+  }
+
+  // ================= EXAM BUILDER DATA =================
+  const examples = {
+    "Weimar weaknesses": [
+      "Political instability: frequent coalition governments made democracy look weak",
+      "Hyperinflation (1923): savings wiped out, anger at Weimar leadership",
+      "Treaty of Versailles resentment: war guilt + reparations fuelled bitterness",
+      "Use of Article 48 / emergency rule weakened faith in democracy"
+    ],
+    "Great Depression": [
+      "Mass unemployment and poverty after 1929 increased support for extremists",
+      "Nazi vote surge: 1928 fringe → 1932 largest party (crisis-driven swing)",
+      "Collapse of confidence in mainstream parties and democratic solutions",
+      "Business failures and social unrest made radical promises attractive"
+    ],
+    "Hitler charisma": [
+      "Powerful oratory + mass rallies created a loyal following",
+      "Image of strong decisive leader contrasted with Weimar indecision",
+      "Promises of national revival resonated with disillusioned Germans",
+      "Modern campaigning amplified message across Germany"
+    ],
+    "Nazi reorganisation": [
+      "After Munich Putsch, pursued legal route: elections + propaganda",
+      "Built nationwide local branches for grassroots mobilisation",
+      "Centralised leadership under Hitler improved coordination",
+      "Systematic propaganda targeted different social groups"
+    ],
+    "Anti-TOV appeal": [
+      "Promised to overturn Versailles, winning nationalist/right-wing support",
+      "Propaganda blamed Weimar “November Criminals” for humiliation",
+      "Anti-reparations message appealed during hardship",
+      "Positioned Nazis as defenders of German honour"
+    ],
+    "SA intimidation": [
+      "Protected Nazi rallies and increased street presence",
+      "Disrupted opponents’ meetings, weakening democratic competition",
+      "Created fear and the impression Nazis could restore order",
+      "Violence and intimidation reduced opposition confidence"
+    ],
+    "Reichstag Fire": [
+      "Used as pretext to arrest communists and suppress dissent",
+      "Emergency decree reduced civil liberties and free speech",
+      "Opposition weakened before political consolidation",
+      "Created fear narrative: ‘Germany under threat’"
+    ],
+    "Enabling Act": [
+      "Allowed laws without Reichstag approval: rule by decree",
+      "Destroyed parliamentary checks and ended democracy legally",
+      "Enabled rapid dismantling of opposition parties and institutions",
+      "Legal foundation for totalitarian control"
+    ],
+    "Night of the Long Knives": [
+      "Purged SA leadership and rivals, removing internal threats",
+      "Reassured the army by reducing SA power",
+      "Strengthened Hitler’s authority within the Nazi movement",
+      "Showed willingness to use violence to maintain control"
+    ],
+    "Army oath": [
+      "Army swore personal loyalty to Hitler, not constitution",
+      "Removed a major potential check on Hitler’s power",
+      "Ensured military cooperation for dictatorship and rearmament",
+      "Made resistance within the army less likely"
+    ]
+  };
+
+  function fillSelect(selectId, items){
+    const sel = document.getElementById(selectId);
+    sel.innerHTML = "";
+    items.forEach((txt, i) => {
+      const opt = document.createElement("option");
+      opt.value = txt;
+      opt.textContent = (i+1) + ". " + txt;
+      sel.appendChild(opt);
+    });
+  }
+
+  function updateExamples(){
+    const g = document.getElementById('given').value;
+    const o = document.getElementById('other').value;
+
+    // Prevent same factor on both sides by nudging
+    if(g === o){
+      document.getElementById('other').value = (g === "Great Depression") ? "Weimar weaknesses" : "Great Depression";
+    }
+
+    const g2 = document.getElementById('given').value;
+    const o2 = document.getElementById('other').value;
+
+    fillSelect('a1', examples[g2]);
+    fillSelect('a2', examples[g2]);
+    fillSelect('b1', examples[o2]);
+    fillSelect('b2', examples[o2]);
+
+    // default different examples
+    document.getElementById('a2').selectedIndex = 1;
+    document.getElementById('b2').selectedIndex = 1;
+  }
+
+  function generate(){
+    const g = document.getElementById('given').value;
+    const o = document.getElementById('other').value;
+
+    const A1 = document.getElementById('a1').value;
+    const A2 = document.getElementById('a2').value;
+    const B1 = document.getElementById('b1').value;
+    const B2 = document.getElementById('b2').value;
+
+    const judge = document.getElementById('judge').value;
+    const why = (document.getElementById('why').value || "").trim();
+
+    // Build a clean two-sided answer (4 examples), plus bonus evaluation sentence
+    const intro = `Question: How far do you agree that "${g}" was the most important reason for Hitler’s rise / consolidation of power?\n`;
+    const plan = `\nTwo-sided argument (4 examples):\n`;
+
+    const sideA =
+`SIDE A — Given factor (${g}):
+Point: ${g} was important because it created/strengthened support for Hitler and the Nazis.
+Evidence 1: ${A1}.
+Evidence 2: ${A2}.
+Explain: These examples show how ${g.toLowerCase()} either increased public dissatisfaction with Weimar or made Nazi solutions more attractive, helping the Nazis gain traction.`;
+
+    const sideB =
+`SIDE B — Another factor (${o}):
+Point: However, ${o} may have been equally/more important because it directly helped the Nazis convert conditions into power.
+Evidence 3: ${B1}.
+Evidence 4: ${B2}.
+Explain: These examples show how ${o.toLowerCase()} either mobilised support, weakened opponents, or enabled Hitler to consolidate authority more effectively.`;
+
+    let judgementLine = "";
+    if(judge === "given"){
+      judgementLine = `\nJUDGEMENT: Overall, ${g} was more important.`;
+    }else if(judge === "other"){
+      judgementLine = `\nJUDGEMENT: Overall, ${o} was more important.`;
+    }else{
+      judgementLine = `\nJUDGEMENT: Overall, both factors were important, but they worked in different ways.`;
+    }
+
+    const bonus =
+`\nBONUS (Evaluate given factor vs another factor):
+Compared to ${o}, ${g} mainly explains the *conditions* that increased support (why people were willing to follow Hitler), while ${o} explains the *mechanism* that turned this support into real political power. ${why ? "Therefore, " + why : "Therefore, decide which one is more ‘direct’ in producing the outcome and explain why."}`;
+
+    document.getElementById('out').textContent =
+      intro + plan + "\n" + sideA + "\n\n" + sideB + "\n" + judgementLine + bonus;
+  }
+
+  async function copyOut(){
+    const text = document.getElementById('out').textContent;
+    try{
+      await navigator.clipboard.writeText(text);
+      alert("Copied.");
+    }catch(e){
+      alert("Copy failed. You can manually select and copy.");
+    }
+  }
+
+  function clearOut(){
+    document.getElementById('out').textContent = "Your answer will appear here.";
+  }
+
+  // init
+  updateExamples();
+</script>
+
+</body>
+</html>
