@@ -59,7 +59,7 @@
     <button onclick="goToSlide(64)">Quiz / Review</button>
   </div>
 
-  <img id="slide" src="slide1.jpg" alt="WWII slide">
+  <img id="slide" src="Chapter%206%20-%20The%20End%20of%20WWII%20in%20Europe%20and%20Asia-Pacific/slide%20(1).JPG" alt="WWII slide">
 
   <br>
 
@@ -72,8 +72,18 @@
     let slide = 1;
     let totalSlides = 67;
 
+    let folder = "Chapter%206%20-%20The%20End%20of%20WWII%20in%20Europe%20and%20Asia-Pacific/";
+
+    function getSlideFileName(number) {
+      if (number === 67) {
+        return folder + "slide%20(67).jpg";
+      } else {
+        return folder + "slide%20(" + number + ").JPG";
+      }
+    }
+
     function showSlide() {
-      document.getElementById("slide").src = "slide" + slide + ".jpg";
+      document.getElementById("slide").src = getSlideFileName(slide);
       document.getElementById("slideNumber").innerText = "Slide " + slide + " / " + totalSlides;
     }
 
