@@ -1,1 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>End of WWII Interactive Slides</title>
+  <style>
+    body {
+      margin: 0;
+      background: #111;
+      color: white;
+      font-family: Arial, sans-serif;
+      text-align: center;
+    }
 
+    h1 {
+      font-size: 28px;
+      margin: 15px;
+    }
+
+    img {
+      width: 92%;
+      max-height: 78vh;
+      object-fit: contain;
+      border: 2px solid white;
+      background: white;
+    }
+
+    button {
+      font-size: 18px;
+      padding: 10px 18px;
+      margin: 6px;
+      cursor: pointer;
+    }
+
+    .menu {
+      margin: 10px;
+    }
+  </style>
+</head>
+
+<body>
+
+<h1>The End of World War II in Europe and Asia-Pacific</h1>
+
+<div class="menu">
+  <button onclick="goToSlide(1)">Start</button>
+  <button onclick="goToSlide(7)">Europe</button>
+  <button onclick="goToSlide(20)">Asia-Pacific</button>
+  <button onclick="goToSlide(27)">Allied Strengths</button>
+  <button onclick="goToSlide(50)">Axis Weaknesses</button>
+  <button onclick="goToSlide(64)">Quiz / Review</button>
+</div>
+
+<img id="slide" src="slide%20(1).JPG">
+
+<br>
+
+<button onclick="previousSlide()">Previous</button>
+<button onclick="nextSlide()">Next</button>
+
+<p id="slideNumber">Slide 1 / 67</p>
+
+<script>
+let slide = 1;
+let totalSlides = 67;
+
+function showSlide() {
+  document.getElementById("slide").src = "slide%20(" + slide + ").JPG";
+  document.getElementById("slideNumber").innerText = "Slide " + slide + " / " + totalSlides;
+}
+
+function nextSlide() {
+  if (slide < totalSlides) {
+    slide++;
+    showSlide();
+  }
+}
+
+function previousSlide() {
+  if (slide > 1) {
+    slide--;
+    showSlide();
+  }
+}
+
+function goToSlide(number) {
+  slide = number;
+  showSlide();
+}
+</script>
+
+</body>
+</html>
