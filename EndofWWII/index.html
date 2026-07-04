@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WWII Mastery Hub & Interactive LORMS Essay Grader</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f8fafc',
+                            100: '#f1f5f9',
+                            500: '#475569',
+                            600: '#334155',
+                            700: '#1e293b',
+                            800: '#0f172a',
+                            900: '#020617',
+                            gold: '#f59e0b',
+                            goldHover: '#d97706',
+                            accent: '#ef4444'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .scrollbar-thin::-webkit-scrollbar {
+            width: 6px;
+        }
+        .scrollbar-thin::-webkit-scrollbar-track {
+            background: rgba(15, 23, 42, 0.3);
+        }
+        .scrollbar-thin::-webkit-scrollbar-thumb {
+            background-color: rgba(245, 158, 11, 0.3);
+            border-radius: 20px;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fadeIn {
+            animation: fadeIn 0.4s ease forwards;
+        }
+    </style>
+</head>
+<body class="bg-brand-900 text-slate-100 min-h-screen transition-colors duration-200 selection:bg-brand-gold selection:text-brand-900 scrollbar-thin">
+
+    <!-- TOP HEADER HERO -->
+    <header class="relative bg-gradient-to-r from-brand-800 via-brand-700 to-brand-900 text-white py-12 px-6 shadow-2xl border-b border-slate-800 overflow-hidden">
+        <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#f59e0b_1px,transparent_1px)] [background-size:16px_16px]"></div>
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center relative z-10 gap-6">
+            <div class="text-center md:text-left">
+                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-brand-gold/10 text-brand-gold border border-brand-gold/20 mb-3">
+                    <svg class="w-3 h-3 animate-pulse text-brand-gold" fill="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle></svg>
+                    Syllabus-Aligned Revision Dashboard
+                </span>
+                <h1 class="text-3xl md:text-5xl font-extrabold tracking-tight bg-gradient-to-r from-white via-slate-100 to-brand-gold bg-clip-text text-transparent">The End of WWII</h1>
+                <p class="text-slate-400 mt-2 text-sm md:text-base max-w-xl">
+                    Review Allied strengths, Axis weaknesses, and test yourself on the official Chapter 6 History syllabus with our dual manual/AI LORMS essay marking engine.
+                </p>
+            </div>
+            <!-- API Configuration Settings -->
+            <div class="bg-slate-800/80 backdrop-blur-sm border border-slate-700 p-4 rounded-2xl shadow-xl w-full max-w-md">
+                <div class="flex items-center justify-between mb-2">
+                    <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wider flex items-center gap-1.5">
+                        <svg class="w-3.5 h-3.5 text-brand-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                        Gemini AI Integration (Optional)
+                    </h3>
+                    <span class="text-[10px] text-green-400 font-mono bg-green-500/10 px-2 py-0.5 rounded border border-green-500/20">Secure Workspace</span>
+                </div>
+                <input type="password" id="api-key-input" placeholder="Paste your Gemini API key here..." class="w-full text-xs bg-slate-950 border border-slate-700 text-slate-200 placeholder-slate-500 rounded-lg p-2.5 focus:ring-1 focus:ring-brand-gold focus:outline-none" />
+                <p class="text-[10px] text-slate-400 mt-2 leading-normal">
+                    Insert your personal key to unlock the instant **AI LORMS Grader**. Your key stays safe in your local browser storage.
+                </p>
+            </div>
+        </div>
+    </header>
+
+    <!-- NAVIGATION TABS -->
+    <nav class="sticky top-0 z-40 bg-brand-800/90 backdrop-blur-md border-b border-slate-800 shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 flex justify-start space-x-1 sm:space-x-4 h-14 items-center overflow-x-auto scrollbar-none">
+            <button onclick="switchTab('study')" id="tab-btn-study" class="nav-tab active px-4 py-2 text-sm font-semibold rounded-xl text-brand-gold bg-slate-900 border border-brand-gold/20 flex items-center gap-2 shrink-0 transition-all duration-200">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+                Study Guide Matrix
+            </button>
+            <button onclick="switchTab('essays')" id="tab-btn-essays" class="nav-tab px-4 py-2 text-sm font-semibold rounded-xl text-slate-400 hover:text-slate-100 hover:bg-slate-800/50 flex items-center gap-2 shrink-0 transition-all duration-200">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg>
+                50 Essays & LORMS Grader
+            </button>
+            <button onclick="switchTab('quiz')" id="tab-btn-quiz" class="nav-tab px-4 py-2 text-sm font-semibold rounded-xl text-slate-400 hover:text-slate-100 hover:bg-slate-800/50 flex items-center gap-2 shrink-0 transition-all duration-200">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path></svg>
+                Challenge Quiz Game
+            </button>
+        </div>
+    </nav>
+
+    <!-- CONTENT BOX -->
+    <main class="max-w-7xl mx-auto px-4 py-8">
+
+        <!-- TAB 1: STUDY GUIDE MATRIX -->
+        <div id="section-study" class="tab-content block animate-fadeIn">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                <!-- Timeline & Quick Notes -->
+                <div class="lg:col-span-8 space-y-6">
+                    <div class="bg-slate-800 border border-slate-700/80 p-6 rounded-2xl shadow-xl">
+                        <div class="flex items-center justify-between mb-4">
+                            <h2 class="text-xl font-bold text-white flex items-center gap-2">
+                                <span class="w-2.5 h-6 bg-brand-gold rounded-full inline-block"></span>
+                                Chronology of Key Developments (1939 - 1945)
+                            </h2>
+                            <span class="text-xs text-brand-gold font-semibold uppercase tracking-wider bg-brand-gold/10 px-3 py-1 rounded-full border border-brand-gold/20">Syllabus Milestones</span>
+                        </div>
+                        <p class="text-slate-400 text-xs mb-6 leading-relaxed">
+                            These critical dates map directly to the PowerPoint syllabus. Click any timeline milestone below to reveal deep academic reviews and crucial historical insights.
+                        </p>
+                        
+                        <!-- Timeline Items -->
+                        <div class="relative border-l border-slate-700 ml-4 space-y-6">
+                            <div class="relative pl-6 group cursor-pointer" onclick="toggleDetails('timeline-1')">
+                                <div class="absolute -left-[5px] top-1.5 w-2.5 h-2.5 rounded-full bg-brand-gold group-hover:scale-125 transition"></div>
+                                <span class="text-xs font-semibold text-brand-gold">September 1939 - June 1941</span>
+                                <h4 class="font-bold text-slate-100 group-hover:text-brand-gold transition text-sm">War Outbreak, Blitzkrieg & Eastern Front Opening</h4>
+                                <p class="text-xs text-slate-400 mt-1">Germany invades Poland, prompting declarations of war. Blitzkrieg maneuvers quickly collapse Western European defenses, followed by Operation Barbarossa in June 1941.</p>
+                                <div id="timeline-1" class="hidden mt-2.5 p-4 bg-slate-900 border border-slate-800 rounded-xl text-xs space-y-1.5 text-slate-300 leading-relaxed">
+                                    <strong>Curriculum Detail:</strong> The invasion of Poland on 1 September 1939 led to its division between Germany and the USSR. By May–June 1940, Blitzkrieg tactics forced Belgium, France, and the Netherlands to surrender. In June 1941, Operation Barbarossa dragged the USSR into an active two-front war, forcing Nazi resources to split across vast distances.
+                                </div>
+                            </div>
+                            
+                            <div class="relative pl-6 group cursor-pointer" onclick="toggleDetails('timeline-2')">
+                                <div class="absolute -left-[5px] top-1.5 w-2.5 h-2.5 rounded-full bg-brand-gold group-hover:scale-125 transition"></div>
+                                <span class="text-xs font-semibold text-brand-gold">July 1940 - October 1940</span>
+                                <h4 class="font-bold text-slate-100 group-hover:text-brand-gold transition text-sm">Battle of Britain & Tactical Shifts</h4>
+                                <p class="text-xs text-slate-400 mt-1">The German Luftwaffe attempts to achieve total air superiority over Great Britain to prepare for an amphibious invasion (Operation Sea Lion).</p>
+                                <div id="timeline-2" class="hidden mt-2.5 p-4 bg-slate-900 border border-slate-800 rounded-xl text-xs space-y-1.5 text-slate-300 leading-relaxed">
+                                    <strong>Curriculum Detail:</strong> This represented a critical German tactical blunder. German command shifted its target from bombing British airfields and radar stations to carpet-bombing London and other cities (the Blitz). This gave the Royal Air Force (RAF) vital breathing room to recover, rebuild fighter squads, and retain air control.
+                                </div>
+                            </div>
+
+                            <div class="relative pl-6 group cursor-pointer" onclick="toggleDetails('timeline-3')">
+                                <div class="absolute -left-[5px] top-1.5 w-2.5 h-2.5 rounded-full bg-brand-gold group-hover:scale-125 transition"></div>
+                                <span class="text-xs font-semibold text-brand-gold">August 1942 - February 1943</span>
+                                <h4 class="font-bold text-slate-100 group-hover:text-brand-gold transition text-sm">Turning Point: Siege of Stalingrad & Kursk</h4>
+                                <p class="text-xs text-slate-400 mt-1">The Soviet Union stops the German 6th Army in Stalingrad and launches decisive defensive operations.</p>
+                                <div id="timeline-3" class="hidden mt-2.5 p-4 bg-slate-900 border border-slate-800 rounded-xl text-xs space-y-1.5 text-slate-300 leading-relaxed">
+                                    <strong>Curriculum Detail:</strong> The Battle of Stalingrad resulted in the surrender of German field divisions and marked the end of the German advance into Soviet territory. Following Kursk (July-August 1943), Germany was permanently forced onto a defensive retreat on the Eastern Front.
+                                </div>
+                            </div>
+
+                            <div class="relative pl-6 group cursor-pointer" onclick="toggleDetails('timeline-4')">
+                                <div class="absolute -left-[5px] top-1.5 w-2.5 h-2.5 rounded-full bg-brand-gold group-hover:scale-125 transition"></div>
+                                <span class="text-xs font-semibold text-brand-gold">June 1944</span>
+                                <h4 class="font-bold text-slate-100 group-hover:text-brand-gold transition text-sm">Operation Overlord (D-Day Landings)</h4>
+                                <p class="text-xs text-slate-400 mt-1">Allied troops secure beachheads along the coast of Normandy, France, starting the liberation of Western Europe.</p>
+                                <div id="timeline-4" class="hidden mt-2.5 p-4 bg-slate-900 border border-slate-800 rounded-xl text-xs space-y-1.5 text-slate-300 leading-relaxed">
+                                    <strong>Curriculum Detail:</strong> D-Day forced Nazi Germany into an intense, actively contested war on two fronts. Combined with intense Allied strategic bombing, German industrial mobility and fuel reserves collapsed, culminating in the capture of Berlin and Hitler's suicide in April 1945.
+                                </div>
+                            </div>
+
+                            <div class="relative pl-6 group cursor-pointer" onclick="toggleDetails('timeline-5')">
+                                <div class="absolute -left-[5px] top-1.5 w-2.5 h-2.5 rounded-full bg-red-500 group-hover:scale-125 transition"></div>
+                                <span class="text-xs font-semibold text-red-400">August 1945</span>
+                                <h4 class="font-bold text-slate-100 group-hover:text-red-400 transition text-sm">Asia-Pacific Climax, Atomic Bombs & Soviet Entry</h4>
+                                <p class="text-xs text-slate-400 mt-1">Hiroshima and Nagasaki are hit by nuclear bombs, while Soviet divisions sweep into Japanese-held Manchuria.</p>
+                                <div id="timeline-5" class="hidden mt-2.5 p-4 bg-slate-900 border border-slate-800 rounded-xl text-xs space-y-1.5 text-slate-300 leading-relaxed">
+                                    <strong>Curriculum Detail:</strong> Following the Potsdam Declaration, atomic bombs were dropped on Hiroshima (6 August) and Nagasaki (9 August). Simultaneously, the Soviet Union entered the Asian theater, invading Japanese forces in Manchuria. This combination left Japanese leadership with no strategic alternatives, leading to Japan's surrender on 15 August 1945.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Structured Factors Grid -->
+                <div class="lg:col-span-4 space-y-6">
+                    <div class="bg-gradient-to-br from-slate-800 to-brand-850 p-6 rounded-2xl shadow-xl border border-slate-700">
+                        <h3 class="text-lg font-bold text-brand-gold flex items-center gap-1.5">
+                            <svg class="w-5 h-5 text-brand-gold" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                            Key Syllabus Factors
+                        </h3>
+                        <p class="text-xs text-slate-300 mt-2 leading-relaxed">
+                            To secure a **Level 8** on LORMS essays, you must analyze and compare multiple factors. Use these verified parameters from the official PowerPoint syllabus for your structures:
+                        </p>
+                        
+                        <div class="mt-4 space-y-3">
+                            <div class="p-3.5 bg-slate-900/60 rounded-xl border border-slate-700 text-xs">
+                                <span class="font-bold text-brand-gold">Factor A: American Entry & Resources</span>
+                                <p class="text-slate-400 mt-1">Industrial dominance ("Arsenal of Democracy"), mass production of weapons, and the Lend-Lease program supplying global Allies.</p>
+                            </div>
+                            <div class="p-3.5 bg-slate-900/60 rounded-xl border border-slate-700 text-xs">
+                                <span class="font-bold text-brand-gold">Factor B: Massive Soviet Contribution</span>
+                                <p class="text-slate-400 mt-1">Absorbed 80% of German land casualties, evacuated industrial complexes to the Urals, and defeated the Kwantung Army in Manchuria.</p>
+                            </div>
+                            <div class="p-3.5 bg-slate-900/60 rounded-xl border border-slate-700 text-xs">
+                                <span class="font-bold text-brand-gold">Factor C: Command Failures & Hubris</span>
+                                <p class="text-slate-400 mt-1">Hitler's constant micromanagement and strategic errors; Japan's overextended logistics and deep inter-service rivalry.</p>
+                            </div>
+                            <div class="p-3.5 bg-slate-900/60 rounded-xl border border-slate-700 text-xs">
+                                <span class="font-bold text-brand-gold">Factor D: Allied Strategies & Submarine Blockade</span>
+                                <p class="text-slate-400 mt-1">Island-hopping, Enigma code-breaking (Ultra/Magic), and American submarine blockades starving Japan's access to oil and raw materials.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Detailed comparative cards -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
+                <!-- Allied Strengths -->
+                <div class="bg-slate-800 p-6 rounded-2xl shadow-xl border border-emerald-500/10 hover:border-emerald-500/20 transition duration-300">
+                    <h3 class="text-lg font-bold text-emerald-400 flex items-center gap-2 mb-4">
+                        <span class="p-1.5 bg-emerald-500/10 text-emerald-400 rounded-lg">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                        </span>
+                        1. Strengths of the Allies
+                    </h3>
+                    <ul class="space-y-4 text-xs text-slate-300">
+                        <li class="p-3.5 bg-slate-900/50 rounded-xl">
+                            <strong class="text-white text-sm block mb-1">American Economic Resources & Manpower</strong>
+                            The US provided unmatched industrial output, producing massive numbers of cargo ships, warplanes, and weapons. The Lend-Lease program (1941) provided critical food, raw materials, and vehicles to keep Britain and the Soviet Union in the fight.
+                        </li>
+                        <li class="p-3.5 bg-slate-900/50 rounded-xl">
+                            <strong class="text-white text-sm block mb-1">Soviet Military Resilience & Adaptations</strong>
+                            The Soviet Union survived the initial onslaught of Operation Barbarossa, moved vital heavy military factories beyond the Ural Mountains, and modernized its tank divisions (producing the famous T-34 armor) to repel German forces.
+                        </li>
+                        <li class="p-3.5 bg-slate-900/50 rounded-xl">
+                            <strong class="text-white text-sm block mb-1">Allied Strategic Intelligence & Joint Operations</strong>
+                            Cracking German Enigma codes (Ultra) and Japanese military keys (Magic) gave the Allies a major information advantage. Strategies like D-Day and Pacific Island-hopping bypassed key strongpoints to minimize casualties.
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Axis Weaknesses -->
+                <div class="bg-slate-800 p-6 rounded-2xl shadow-xl border border-red-500/10 hover:border-red-500/20 transition duration-300">
+                    <h3 class="text-lg font-bold text-red-400 flex items-center gap-2 mb-4">
+                        <span class="p-1.5 bg-red-500/10 text-red-400 rounded-lg">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                        </span>
+                        2. Weaknesses of the Axis Powers
+                    </h3>
+                    <ul class="space-y-4 text-xs text-slate-300">
+                        <li class="p-3.5 bg-slate-900/50 rounded-xl">
+                            <strong class="text-white text-sm block mb-1">German Ineffective Command Structure</strong>
+                            Adolf Hitler micro-managed complex tactical movements, overrode highly experienced generals, and made severe strategic blunders. Overlapping, competing civil-military agencies within Nazi Germany created massive operational friction.
+                        </li>
+                        <li class="p-3.5 bg-slate-900/50 rounded-xl">
+                            <strong class="text-white text-sm block mb-1">Logistical Nightmares & War on Two Fronts</strong>
+                            Failing to secure peace with Great Britain before launching Operation Barbarossa trapped Germany in a grueling, resource-draining war on two fronts, stretching German logistics thin.
+                        </li>
+                        <li class="p-3.5 bg-slate-900/50 rounded-xl">
+                            <strong class="text-white text-sm block mb-1">Japanese Overextension & Oil Isolation</strong>
+                            Japan's conquests across Asia and the Pacific left its supply lines incredibly overextended. American submarine blockades successfully choked off imports of vital raw rubber and oil, paralyzing its fleet and industry.
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 2: 50 ESSAYS & LORMS GRADER -->
+        <div id="section-essays" class="tab-content hidden animate-fadeIn">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                <!-- Essay Prompts List & Workspace -->
+                <div class="lg:col-span-7 space-y-6">
+                    <div class="bg-slate-800 border border-slate-700/80 p-6 rounded-2xl shadow-xl">
+                        <div class="flex items-center justify-between mb-4">
+                            <h2 class="text-lg font-bold text-white">Select a Verified Essay Statement</h2>
+                            <span class="text-xs text-brand-gold font-bold px-2.5 py-1 bg-brand-gold/10 rounded-lg border border-brand-gold/20">50 Topics</span>
+                        </div>
+                        <p class="text-xs text-slate-400 mb-4 leading-relaxed">
+                            These 50 statement-based essay prompts are split into two distinct, historically accurate theaters—the **Defeat of Germany (Topics 1-25)** and the **Defeat of Japan (Topics 26-50)**—eliminating any crossover errors.
+                        </p>
+                        
+                        <div class="relative">
+                            <select id="essay-select-main" onchange="loadSelectedEssay()" class="w-full text-xs font-semibold p-3.5 bg-slate-900 border border-slate-700 rounded-xl focus:ring-1 focus:ring-brand-gold focus:outline-none text-slate-200 cursor-pointer scrollbar-thin">
+                                <!-- Generated Dynamically -->
+                            </select>
+                        </div>
+
+                        <!-- Active Prompt Card -->
+                        <div class="mt-4 p-5 bg-gradient-to-br from-slate-900 to-brand-950 rounded-xl border border-slate-700">
+                            <span class="text-[10px] uppercase font-bold tracking-wider text-brand-gold">Active Essay Statement:</span>
+                            <p id="display-prompt-text" class="text-sm md:text-base font-semibold text-slate-200 mt-1 italic leading-relaxed">
+                                Loading prompt...
+                            </p>
+                        </div>
+
+                        <!-- Workspace Text Area -->
+                        <div class="mt-6">
+                            <div class="flex justify-between items-center mb-2">
+                                <label class="text-xs font-bold text-slate-400">Write/Paste Your Essay Draft or Outline Here:</label>
+                                <span id="word-count" class="text-[10px] text-slate-400">0 words</span>
+                            </div>
+                            <textarea id="essay-textarea" oninput="updateWordCount()" rows="12" placeholder="Start typing your essay here... Explore Allied strengths and Axis weaknesses, provide specific examples (e.g., raw material blockades, Ural relocations, military casualty rates), and construct an evaluative conclusion comparing different factors." class="w-full text-xs p-4 bg-slate-950 border border-slate-800 rounded-xl focus:ring-2 focus:ring-brand-gold focus:outline-none text-slate-100 font-mono scrollbar-thin"></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Comprehensive Interactive Rubrics & AI Grader -->
+                <div class="lg:col-span-5 space-y-6">
+                    <!-- Manual Criteria Checklist -->
+                    <div class="bg-slate-800 border border-slate-700/80 p-6 rounded-2xl shadow-xl">
+                        <h3 class="text-base font-bold text-white flex items-center gap-2 mb-3">
+                            <svg class="w-5 h-5 text-brand-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path></svg>
+                            LORMS Manual Rubric Calculator
+                        </h3>
+                        <p class="text-xs text-slate-400 mb-4 leading-normal">
+                            Manually check your response complexity to calculate estimated grades against official SEAB/GCSE rubrics.
+                        </p>
+
+                        <!-- Radio Selections -->
+                        <div class="space-y-3">
+                            <div class="p-3 border border-slate-700/60 rounded-xl hover:bg-slate-900 transition duration-150">
+                                <label class="flex items-start gap-2.5 cursor-pointer">
+                                    <input type="radio" name="lorms-rubric-select" value="3" checked onchange="updateManualRubric()" class="mt-0.5 text-brand-gold focus:ring-brand-gold border-slate-600 bg-slate-800">
+                                    <span class="text-xs">
+                                        <strong class="block text-slate-200">Levels 1-3: Identify/Describe Only (1-3 Marks)</strong>
+                                        <span class="text-slate-400">Identifies relevant factors but does not explain how they caused military collapse.</span>
+                                    </span>
+                                </label>
+                            </div>
+                            <div class="p-3 border border-slate-700/60 rounded-xl hover:bg-slate-900 transition duration-150">
+                                <label class="flex items-start gap-2.5 cursor-pointer">
+                                    <input type="radio" name="lorms-rubric-select" value="5" onchange="updateManualRubric()" class="mt-0.5 text-brand-gold focus:ring-brand-gold border-slate-600 bg-slate-800">
+                                    <span class="text-xs">
+                                        <strong class="block text-slate-200">Levels 4-5: One Explained Factor (4-5 Marks)</strong>
+                                        <span class="text-slate-400">Explains one factor clearly using precise, historical support examples.</span>
+                                    </span>
+                                </label>
+                            </div>
+                            <div class="p-3 border border-slate-700/60 rounded-xl hover:bg-slate-900 transition duration-150">
+                                <label class="flex items-start gap-2.5 cursor-pointer">
+                                    <input type="radio" name="lorms-rubric-select" value="6" onchange="updateManualRubric()" class="mt-0.5 text-brand-gold focus:ring-brand-gold border-slate-600 bg-slate-800">
+                                    <span class="text-xs">
+                                        <strong class="block text-slate-200">Level 6: Two Explained Factors (6 Marks)</strong>
+                                        <span class="text-slate-400">Constructs a balanced two-sided argument explaining two distinct factors.</span>
+                                    </span>
+                                </label>
+                            </div>
+                            <div class="p-3 border border-slate-700/60 rounded-xl hover:bg-slate-900 transition duration-150">
+                                <label class="flex items-start gap-2.5 cursor-pointer">
+                                    <input type="radio" name="lorms-rubric-select" value="7" onchange="updateManualRubric()" class="mt-0.5 text-brand-gold focus:ring-brand-gold border-slate-600 bg-slate-800">
+                                    <span class="text-xs">
+                                        <strong class="block text-slate-200">Level 7: Three Explained Factors (7 Marks)</strong>
+                                        <span class="text-slate-400">Extends coverage to three distinct factors with historical evidence.</span>
+                                    </span>
+                                </label>
+                            </div>
+                            <div class="p-3 border border-slate-700/60 rounded-xl hover:bg-slate-900 transition duration-150">
+                                <label class="flex items-start gap-2.5 cursor-pointer">
+                                    <input type="radio" name="lorms-rubric-select" value="8" onchange="updateManualRubric()" class="mt-0.5 text-brand-gold focus:ring-brand-gold border-slate-600 bg-slate-800">
+                                    <span class="text-xs">
+                                        <strong class="block text-slate-200">Level 8: Four Explained Factors (8 Marks)</strong>
+                                        <span class="text-slate-400">Analyses four or more distinct factors with supporting historical evidence.</span>
+                                    </span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Bonus Conclusion Checklist -->
+                        <div class="mt-4 p-3.5 bg-slate-900 rounded-xl border border-slate-700/60">
+                            <label class="flex items-center gap-2.5 cursor-pointer">
+                                <input type="checkbox" id="conclusion-bonus" onchange="updateManualRubric()" class="rounded text-brand-gold focus:ring-brand-gold w-4 h-4 border-slate-600 bg-slate-850">
+                                <span class="text-xs">
+                                    <strong class="text-slate-200 block">Evaluative Conclusion Included (+2 Marks)</strong>
+                                    <span class="text-[11px] text-slate-400 block mt-0.5 leading-normal">Evaluates and weighs the prompt's given factor against an alternative factor to make a justified judgment.</span>
+                                </span>
+                            </label>
+                        </div>
+
+                        <!-- Total Calculator Score Display -->
+                        <div class="mt-5 flex justify-between items-center bg-slate-900 p-4 rounded-xl border border-slate-700 text-slate-200">
+                            <span class="text-xs font-bold uppercase tracking-wide">Calculated Score:</span>
+                            <div class="text-right">
+                                <span id="manual-score" class="text-2xl font-extrabold text-brand-gold">3</span>
+                                <span class="text-slate-400 text-sm font-bold">/10 Marks</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- AI Evaluator trigger -->
+                    <div class="bg-gradient-to-br from-slate-950 to-brand-800 text-white p-6 rounded-2xl shadow-xl border border-slate-800 relative overflow-hidden">
+                        <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:12px_12px]"></div>
+                        <h3 class="text-sm font-bold text-brand-gold tracking-wide uppercase mb-2 relative z-10">AI LORMS GRADER</h3>
+                        <p class="text-xs text-slate-300 leading-relaxed mb-4 relative z-10">
+                            Let our AI read your draft and score it against the LORMS rubric. Configure your API key at the top of the page before beginning.
+                        </p>
+                        
+                        <button onclick="evaluateEssayAI()" class="w-full relative z-10 py-3.5 bg-brand-gold hover:bg-brand-goldHover active:scale-[0.98] transition font-bold text-xs text-brand-900 rounded-xl shadow-md flex items-center justify-center gap-2">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                            Run AI LORMS Grading
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- AI EVALUATOR RESPONSE AREA -->
+            <div id="ai-response-block" class="hidden mt-8 bg-slate-800 p-6 rounded-2xl shadow-xl border border-slate-700 animate-fadeIn">
+                <div class="flex items-center justify-between border-b border-slate-700 pb-4 mb-4">
+                    <div class="flex items-center gap-3">
+                        <span class="p-2 bg-brand-gold/10 text-brand-gold rounded-full">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path></svg>
+                        </span>
+                        <div>
+                            <h3 class="text-base font-bold text-white">AI LORMS Grading Assessment Report</h3>
+                            <p class="text-xs text-slate-400">Constructive feedback based on standard academic rubrics</p>
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <span id="ai-result-score" class="text-3xl font-black text-brand-gold">0</span>
+                        <span class="text-xs text-slate-400 block font-bold">/ 10 Marks</span>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <!-- Score Details Card -->
+                    <div class="md:col-span-1 space-y-4">
+                        <div class="p-4 bg-slate-900 rounded-xl space-y-3 border border-slate-800">
+                            <div>
+                                <span class="text-[10px] text-slate-500 uppercase tracking-wider font-bold">Assessed Level:</span>
+                                <span id="ai-result-level" class="block text-xs font-bold text-brand-gold mt-0.5">Calculating...</span>
+                            </div>
+                            <div>
+                                <span class="text-[10px] text-slate-500 uppercase tracking-wider font-bold">Base Score:</span>
+                                <span id="ai-result-basescore" class="block text-xs font-semibold text-slate-300">0 Marks</span>
+                            </div>
+                            <div>
+                                <span class="text-[10px] text-slate-500 uppercase tracking-wider font-bold">Conclusion Bonus:</span>
+                                <span id="ai-result-conclusion-bonus" class="block text-xs font-semibold text-slate-300">0 Marks</span>
+                            </div>
+                        </div>
+
+                        <div class="p-4 bg-slate-900 rounded-xl space-y-2 border border-slate-800">
+                            <span class="text-[10px] text-slate-500 uppercase tracking-wider font-bold">Identified Factors:</span>
+                            <ul id="ai-result-factors-identified" class="list-disc list-inside text-xs text-slate-300 space-y-1">
+                                <!-- Populated dynamically -->
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Narrative Feedback Card -->
+                    <div class="md:col-span-2 space-y-4">
+                        <div class="p-5 bg-slate-900 border border-slate-800 rounded-2xl">
+                            <h4 class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Detailed Feedback & Verification:</h4>
+                            <div id="ai-result-feedback" class="text-xs text-slate-300 space-y-2 leading-relaxed whitespace-pre-line">
+                                <!-- Populated dynamically -->
+                            </div>
+                        </div>
+
+                        <div class="p-5 bg-slate-900 border border-slate-800 rounded-2xl">
+                            <h4 class="text-xs font-bold uppercase tracking-wider text-brand-gold mb-2">Syllabus-Based Improvement Actions:</h4>
+                            <ul id="ai-result-tips" class="list-disc list-inside text-xs text-slate-300 space-y-1.5 leading-relaxed">
+                                <!-- Populated dynamically -->
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 3: CHALLENGE QUIZ GAME -->
+        <div id="section-quiz" class="tab-content hidden animate-fadeIn">
+            <div class="max-w-3xl mx-auto space-y-6">
+                <!-- Welcome/Start Screen -->
+                <div id="quiz-intro-card" class="bg-slate-800 p-8 rounded-2xl shadow-xl border border-slate-700 text-center">
+                    <div class="w-16 h-16 bg-brand-gold/10 text-brand-gold rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    </div>
+                    <h2 class="text-2xl font-extrabold text-white">WWII History Mastery Quiz</h2>
+                    <p class="text-slate-300 text-sm mt-2 max-w-md mx-auto leading-relaxed">
+                        Test your knowledge with our 15-question challenge designed to review the official PowerPoint study slides with zero factual hallucination.
+                    </p>
+                    <button onclick="startQuiz()" class="mt-6 px-6 py-3 bg-brand-gold hover:bg-brand-goldHover active:scale-95 transition font-bold text-sm text-brand-900 rounded-xl shadow-md">
+                        Begin Revision Quiz
+                    </button>
+                </div>
+
+                <!-- Quiz Progress Bar -->
+                <div id="quiz-progress-block" class="hidden space-y-2">
+                    <div class="flex justify-between text-xs text-slate-400">
+                        <span>Question <span id="current-q-num">1</span> of 15</span>
+                        <span>Progress: <span id="progress-percent">0</span>%</span>
+                    </div>
+                    <div class="w-full bg-slate-800 h-2 rounded-full overflow-hidden">
+                        <div id="progress-bar-fill" class="bg-brand-gold h-full transition-all duration-300" style="width: 0%"></div>
+                    </div>
+                </div>
+
+                <!-- Dynamic Question Card -->
+                <div id="quiz-question-card" class="hidden bg-slate-800 p-6 rounded-2xl shadow-xl border border-slate-700">
+                    <h3 id="question-text" class="text-base font-bold text-white mb-4 leading-snug">
+                        Question loading...
+                    </h3>
+                    
+                    <div id="options-container" class="space-y-3">
+                        <!-- Populated via Javascript -->
+                    </div>
+
+                    <!-- Explanations Box -->
+                    <div id="explanation-box" class="hidden mt-4 p-4 bg-slate-900 border border-slate-700 rounded-xl">
+                        <span class="text-[10px] font-bold text-brand-gold uppercase tracking-wider block">Syllabus Insight:</span>
+                        <p id="explanation-text" class="text-xs text-slate-300 mt-1 leading-relaxed">
+                            Explanation contents.
+                        </p>
+                    </div>
+
+                    <div class="mt-6 flex justify-between items-center">
+                        <button id="explanation-btn" onclick="toggleExplanation()" class="hidden px-4 py-2 text-xs font-semibold text-slate-400 hover:text-slate-100 transition">
+                            Show Syllabus Explanation
+                        </button>
+                        <button id="next-q-btn" onclick="nextQuestion()" class="px-5 py-2.5 bg-brand-gold hover:bg-brand-goldHover text-brand-900 font-bold text-xs rounded-xl shadow transition">
+                            Next Question
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Results Block -->
+                <div id="quiz-results-card" class="hidden bg-slate-800 p-8 rounded-2xl shadow-xl border border-slate-700 text-center animate-fadeIn">
+                    <h3 class="text-2xl font-black text-white">Command Assessment Completed!</h3>
+                    <p class="text-slate-400 text-xs mt-1">Review your absolute grade score breakdown below</p>
+                    
+                    <div class="my-6">
+                        <span id="final-score-display" class="text-5xl font-extrabold text-brand-gold block">0 / 15</span>
+                        <span id="final-feedback-display" class="text-xs font-semibold text-slate-300 block mt-2">Good review effort.</span>
+                    </div>
+
+                    <button onclick="startQuiz()" class="px-5 py-2.5 bg-brand-gold hover:bg-brand-goldHover active:scale-95 transition font-bold text-xs text-brand-900 rounded-xl shadow-md">
+                        Retake Assessment
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- FLOATING SYSTEM MESSAGES MODAL -->
+    <div id="custom-modal" class="hidden fixed inset-0 z-50 overflow-y-auto bg-slate-950/60 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-slate-800 max-w-sm w-full rounded-2xl shadow-2xl border border-slate-700 p-6 text-center transform scale-95 transition-all">
+            <div id="modal-icon-container" class="w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4">
+                <!-- SVG dynamically injected -->
+            </div>
+            <h3 id="modal-title" class="text-base font-bold text-white">Title</h3>
+            <p id="modal-desc" class="text-xs text-slate-400 mt-2 leading-relaxed">Description text</p>
+            <button onclick="closeModal()" class="mt-5 px-4 py-2.5 bg-slate-700 hover:bg-slate-650 text-white font-semibold text-xs rounded-xl w-full transition">
+                Acknowledge
+            </button>
+        </div>
+    </div>
+
+    <!-- MAIN JAVASCRIPT SYSTEM LOGIC -->
+    <script>
+        // Tab switching controller
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('block'));
+            document.querySelectorAll('.nav-tab').forEach(el => {
+                el.classList.remove('active', 'text-brand-gold', 'bg-slate-900', 'border', 'border-brand-gold/20');
+                el.classList.add('text-slate-400', 'hover:text-slate-100', 'hover:bg-slate-800/50');
+            });
+
+            document.getElementById('section-' + tabId).classList.remove('hidden');
+            document.getElementById('section-' + tabId).classList.add('block');
+            
+            const activeBtn = document.getElementById('tab-btn-' + tabId);
+            activeBtn.classList.add('active', 'text-brand-gold', 'bg-slate-900', 'border', 'border-brand-gold/20');
+            activeBtn.classList.remove('text-slate-400', 'hover:text-slate-100', 'hover:bg-slate-800/50');
+        }
+
+        // Toggle details panel in timeline
+        function toggleDetails(elementId) {
+            const el = document.getElementById(elementId);
+            el.classList.toggle('hidden');
+        }
+
+        // SYSTEM ALERTS & DIALOGS (Ensuring NO native browser alerts are used)
+        function triggerModal(title, message, type = 'info') {
+            const modal = document.getElementById('custom-modal');
+            const titleEl = document.getElementById('modal-title');
+            const descEl = document.getElementById('modal-desc');
+            const iconContainer = document.getElementById('modal-icon-container');
+
+            titleEl.innerText = title;
+            descEl.innerText = message;
+
+            if (type === 'error') {
+                iconContainer.className = "w-12 h-12 bg-red-500/10 text-red-400 rounded-full flex items-center justify-center mx-auto mb-4";
+                iconContainer.innerHTML = '<svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>';
+            } else if (type === 'success') {
+                iconContainer.className = "w-12 h-12 bg-emerald-500/10 text-emerald-400 rounded-full flex items-center justify-center mx-auto mb-4";
+                iconContainer.innerHTML = '<svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>';
+            } else {
+                iconContainer.className = "w-12 h-12 bg-blue-500/10 text-blue-400 rounded-full flex items-center justify-center mx-auto mb-4";
+                iconContainer.innerHTML = '<svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9
