@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GCSE / IGCSE History Essay Revision Studio - PEEL Focus</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Newsreader:ital,wght@0,400;0,600;1,400&display=swap');
+    
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+    .serif {
+      font-family: 'Newsreader', serif;
+    }
+
+    /* 4-Color PEEL Highlight Classes */
+    .peel-point { 
+      background-color: #1e3a8a; 
+      color: #bfdbfe; 
+      border-left: 4px solid #3b82f6; 
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+    .peel-evidence { 
+      background-color: #78350f; 
+      color: #fef08a; 
+      border-left: 4px solid #f59e0b; 
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+    .peel-explain { 
+      background-color: #7f1d1d; 
+      color: #fca5a5; 
+      border-left: 4px solid #ef4444; 
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+    .peel-link { 
+      background-color: #0c4a6e; 
+      color: #bae6fd; 
+      border-left: 4px solid #0284c7; 
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #0f172a;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #334155;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #f59e0b;
+    }
+  </style>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col">
+
+  <!-- Header with Red, Blue & Gold Theme -->
+  <header class="border-b border-amber-500/30 bg-blue-950/90 backdrop-blur sticky top-0 z-50 shadow-lg shadow-blue-950/50">
+    <div class="max-w-7xl mx-auto px-4 py-3.5 flex flex-wrap items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <div class="bg-red-600 text-amber-300 p-2.5 rounded-xl shadow-lg shadow-red-600/30 border border-amber-400/40">
+          <i class="fa-solid fa-graduation-cap text-xl"></i>
+        </div>
+        <div>
+          <h1 class="text-lg font-extrabold text-white leading-tight flex items-center gap-2">
+            History PEEL Masterclass <span class="text-xs px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-400/30">10-Mark Focus</span>
+          </h1>
+          <p class="text-xs text-blue-200">Interactive Essay Revision & PEEL Structure Breakdown</p>
+        </div>
+      </div>
+
+      <!-- Navigation Tabs -->
+      <nav class="flex items-center gap-1.5 bg-blue-900/60 p-1.5 rounded-xl border border-blue-700/60 overflow-x-auto max-w-full">
+        <button onclick="switchTab('analyzer')" id="tab-analyzer" class="nav-tab text-xs md:text-sm px-3.5 py-1.5 rounded-lg font-bold transition-all text-white bg-red-600 border border-amber-400/40 shadow-md flex items-center gap-2 whitespace-nowrap">
+          <i class="fa-solid fa-highlighter text-amber-300"></i> PEEL Analyzer
+        </button>
+        <button onclick="switchTab('cloze')" id="tab-cloze" class="nav-tab text-xs md:text-sm px-3.5 py-1.5 rounded-lg font-semibold transition-all text-blue-200 hover:text-amber-300 hover:bg-blue-800/50 flex items-center gap-2 whitespace-nowrap">
+          <i class="fa-solid fa-key"></i> Evidence Cloze
+        </button>
+        <button onclick="switchTab('planner')" id="tab-planner" class="nav-tab text-xs md:text-sm px-3.5 py-1.5 rounded-lg font-semibold transition-all text-blue-200 hover:text-amber-300 hover:bg-blue-800/50 flex items-center gap-2 whitespace-nowrap">
+          <i class="fa-solid fa-layer-group"></i> Factor Sorter
+        </button>
+        <button onclick="switchTab('unscramble')" id="tab-unscramble" class="nav-tab text-xs md:text-sm px-3.5 py-1.5 rounded-lg font-semibold transition-all text-blue-200 hover:text-amber-300 hover:bg-blue-800/50 flex items-center gap-2 whitespace-nowrap">
+          <i class="fa-solid fa-puzzle-piece"></i> Paragraph Flow
+        </button>
+        <button onclick="switchTab('flashcards')" id="tab-flashcards" class="nav-tab text-xs md:text-sm px-3.5 py-1.5 rounded-lg font-semibold transition-all text-blue-200 hover:text-amber-300 hover:bg-blue-800/50 flex items-center gap-2 whitespace-nowrap">
+          <i class="fa-solid fa-clone"></i> Flashcards
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="flex-1 max-w-7xl w-full mx-auto p-4 md:p-6 space-y-6">
+
+    <!-- Global Topic & Question Selector Bar -->
+    <div class="bg-blue-950/40 border-2 border-amber-500/40 rounded-2xl p-4 flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4 shadow-xl">
+      <div class="flex-1">
+        <label class="block text-xs font-bold text-amber-400 uppercase tracking-wider mb-1 flex items-center gap-1.5">
+          <i class="fa-solid fa-list-check"></i> Select Essay Question
+        </label>
+        <select id="essay-selector" onchange="loadSelectedEssay()" class="w-full bg-slate-900 border border-blue-600/60 text-slate-100 text-sm md:text-base rounded-xl px-3.5 py-2.5 focus:ring-2 focus:ring-amber-400 focus:outline-none transition-all">
+          <!-- Options populated dynamically -->
+        </select>
+      </div>
+      <div id="essay-topic-badge" class="self-start md:self-center px-4 py-2 bg-amber-500/10 border border-amber-400/40 text-amber-300 rounded-xl text-xs font-bold flex items-center gap-2 shadow-sm">
+        <i class="fa-solid fa-bookmark text-red-400"></i>
+        <span id="topic-tag">League of Nations</span>
+      </div>
+    </div>
+
+    <!-- TAB 1: PEEL ANALYZER -->
+    <section id="view-analyzer" class="space-y-4">
+      <!-- PEEL Legend & Filter Bar -->
+      <div class="bg-blue-950/60 border border-blue-800/60 rounded-xl p-4 shadow-md space-y-3">
+        <div class="flex items-center justify-between">
+          <span class="text-xs md:text-sm text-blue-100 font-bold flex items-center gap-2">
+            <i class="fa-solid fa-palette text-amber-400"></i> 4-Step PEEL Highlights Palette:
+          </span>
+          <button onclick="resetHighlights()" class="px-3 py-1 rounded-lg text-xs font-bold text-slate-300 hover:text-white bg-slate-800 hover:bg-slate-700 transition">
+            Show All
+          </button>
+        </div>
+
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-2.5">
+          <button onclick="toggleHighlight('point')" id="btn-hl-point" class="flex items-center justify-between p-2.5 rounded-xl border border-blue-400/50 bg-blue-900/60 text-blue-100 hover:bg-blue-800 transition">
+            <div class="flex items-center gap-2 text-xs font-bold">
+              <span>📌</span>
+              <span>P - Point</span>
+            </div>
+            <span class="w-3 h-3 rounded-full bg-blue-500"></span>
+          </button>
+
+          <button onclick="toggleHighlight('evidence')" id="btn-hl-evidence" class="flex items-center justify-between p-2.5 rounded-xl border border-amber-400/50 bg-amber-900/60 text-amber-100 hover:bg-amber-800 transition">
+            <div class="flex items-center gap-2 text-xs font-bold">
+              <span>📊</span>
+              <span>E - Evidence</span>
+            </div>
+            <span class="w-3 h-3 rounded-full bg-amber-500"></span>
+          </button>
+
+          <button onclick="toggleHighlight('explain')" id="btn-hl-explain" class="flex items-center justify-between p-2.5 rounded-xl border border-red-400/50 bg-red-900/60 text-red-100 hover:bg-red-800 transition">
+            <div class="flex items-center gap-2 text-xs font-bold">
+              <span>💡</span>
+              <span>E - Explain</span>
+            </div>
+            <span class="w-3 h-3 rounded-full bg-red-500"></span>
+          </button>
+
+          <button onclick="toggleHighlight('link')" id="btn-hl-link" class="flex items-center justify-between p-2.5 rounded-xl border border-sky-400/50 bg-sky-900/60 text-sky-100 hover:bg-sky-800 transition">
+            <div class="flex items-center gap-2 text-xs font-bold">
+              <span>🔗</span>
+              <span>L - Link Back</span>
+            </div>
+            <span class="w-3 h-3 rounded-full bg-sky-500"></span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Essay Display Container -->
+      <div class="bg-slate-900/80 border border-blue-900/60 rounded-2xl p-6 md:p-8 shadow-2xl space-y-6">
+        <div class="border-b border-amber-500/30 pb-4">
+          <span class="text-xs font-extrabold text-amber-400 uppercase tracking-widest">10-Mark Exam Question</span>
+          <h2 id="analyzer-question" class="text-xl md:text-2xl font-bold text-white mt-1 serif leading-snug"></h2>
+        </div>
+
+        <div id="analyzer-content" class="space-y-5 text-slate-200 leading-relaxed text-base md:text-lg serif">
+          <!-- Paragraphs injected dynamically -->
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 2: EVIDENCE CLOZE (ACTIVE RECALL) -->
+    <section id="view-cloze" class="hidden space-y-4">
+      <div class="bg-blue-950/60 border border-amber-500/40 rounded-xl p-4 flex items-center justify-between">
+        <div>
+          <h3 class="text-sm font-bold text-white flex items-center gap-2">
+            <i class="fa-solid fa-bullseye text-amber-400"></i> Active Recall: Historical Evidence Practice
+          </h3>
+          <p class="text-xs text-blue-200">Fill in the missing dates, figures, and events from the essay.</p>
+        </div>
+        <div class="flex items-center gap-3">
+          <div class="text-right">
+            <span class="text-xs text-slate-400 block font-semibold uppercase">Score</span>
+            <span id="cloze-score" class="text-lg font-extrabold text-amber-400">0 / 0</span>
+          </div>
+          <button onclick="checkClozeAnswers()" class="px-4 py-2 bg-red-600 hover:bg-red-500 text-white font-bold text-xs rounded-xl shadow-md border border-amber-400/40 transition">Check Answers</button>
+        </div>
+      </div>
+
+      <div class="bg-slate-900/80 border border-blue-900/60 rounded-2xl p-6 md:p-8 shadow-2xl space-y-6">
+        <h2 id="cloze-question" class="text-lg md:text-xl font-bold text-white serif border-b border-amber-500/30 pb-3"></h2>
+        <div id="cloze-body" class="space-y-4 text-slate-200 leading-relaxed text-base md:text-lg serif">
+          <!-- Cloze paragraphs injected -->
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 3: FACTOR PLANNER -->
+    <section id="view-planner" class="hidden space-y-4">
+      <div class="bg-blue-950/60 border border-blue-800/60 rounded-xl p-4">
+        <h3 class="text-sm font-bold text-white flex items-center gap-2">
+          <i class="fa-solid fa-scale-balanced text-amber-400"></i> Dual-Factor Essay Planner
+        </h3>
+        <p class="text-xs text-blue-200">Sort the argument cards into the Named Factor (Agree) vs Counter-Factors (Disagree).</p>
+      </div>
+
+      <div class="bg-slate-900/80 border border-blue-900/60 rounded-2xl p-6 shadow-2xl space-y-6">
+        <h2 id="planner-question" class="text-lg font-bold text-white serif border-b border-amber-500/30 pb-3"></h2>
+
+        <div class="bg-blue-950/40 border border-blue-800/80 rounded-xl p-4">
+          <span class="text-xs font-bold text-amber-400 uppercase tracking-wider block mb-3">Available Factor Cards</span>
+          <div id="planner-pool" class="flex flex-wrap gap-2.5">
+            <!-- Unassigned cards -->
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="bg-blue-950/40 border-2 border-blue-500/40 rounded-xl p-4 flex flex-col min-h-[220px]">
+            <div class="flex items-center justify-between mb-3 border-b border-blue-500/30 pb-2">
+              <span id="agree-column-title" class="text-xs font-extrabold text-blue-300 uppercase tracking-wider flex items-center gap-2"><i class="fa-solid fa-circle-check text-blue-400"></i> AGREE: Named Factor</span>
+              <span id="agree-count" class="text-xs font-bold bg-blue-500/20 text-blue-300 px-2 py-0.5 rounded-full border border-blue-400/30">0 cards</span>
+            </div>
+            <div id="zone-agree" class="flex-1 space-y-2 border-2 border-dashed border-blue-500/20 rounded-lg p-2 min-h-[140px]">
+              <!-- Agreed cards -->
+            </div>
+          </div>
+
+          <div class="bg-red-950/30 border-2 border-red-500/40 rounded-xl p-4 flex flex-col min-h-[220px]">
+            <div class="flex items-center justify-between mb-3 border-b border-red-500/30 pb-2">
+              <span id="disagree-column-title" class="text-xs font-extrabold text-red-300 uppercase tracking-wider flex items-center gap-2"><i class="fa-solid fa-circle-xmark text-red-400"></i> DISAGREE: Counter-Factors</span>
+              <span id="disagree-count" class="text-xs font-bold bg-red-500/20 text-red-300 px-2 py-0.5 rounded-full border border-red-400/30">0 cards</span>
+            </div>
+            <div id="zone-disagree" class="flex-1 space-y-2 border-2 border-dashed border-red-500/20 rounded-lg p-2 min-h-[140px]">
+              <!-- Disagreed cards -->
+            </div>
+          </div>
+        </div>
+
+        <div class="flex items-center justify-between pt-2">
+          <button onclick="checkPlannerSort()" class="px-5 py-2.5 bg-red-600 hover:bg-red-500 text-white font-bold text-xs rounded-xl shadow-lg border border-amber-400/40 transition flex items-center gap-2">
+            <i class="fa-solid fa-circle-check text-amber-300"></i> Verify Planning Balance
+          </button>
+          <div id="planner-feedback" class="text-xs font-bold"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 4: PARAGRAPH UNSCRAMBLE -->
+    <section id="view-unscramble" class="hidden space-y-4">
+      <div class="bg-blue-950/60 border border-blue-800/60 rounded-xl p-4">
+        <h3 class="text-sm font-bold text-white flex items-center gap-2">
+          <i class="fa-solid fa-arrow-down-short-wide text-amber-400"></i> Paragraph Order Practice
+        </h3>
+        <p class="text-xs text-blue-200">Reorder the scrambled paragraphs into logical essay sequence.</p>
+      </div>
+
+      <div class="bg-slate-900/80 border border-blue-900/60 rounded-2xl p-6 shadow-2xl space-y-6">
+        <h2 id="unscramble-question" class="text-lg font-bold text-white serif border-b border-amber-500/30 pb-3"></h2>
+
+        <div id="unscramble-list" class="space-y-3">
+          <!-- Paragraph Blocks -->
+        </div>
+
+        <div class="flex items-center justify-between pt-4 border-t border-blue-900/60">
+          <button onclick="checkParagraphOrder()" class="px-5 py-2.5 bg-red-600 hover:bg-red-500 text-white font-bold text-xs rounded-xl shadow-lg border border-amber-400/40 transition flex items-center gap-2">
+            <i class="fa-solid fa-check text-amber-300"></i> Check Essay Sequence
+          </button>
+          <div id="unscramble-feedback" class="text-xs font-bold"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 5: FLASHCARDS -->
+    <section id="view-flashcards" class="hidden space-y-4">
+      <div class="bg-blue-950/60 border border-blue-800/60 rounded-xl p-4 flex justify-between items-center">
+        <div>
+          <h3 class="text-sm font-bold text-white flex items-center gap-2">
+            <i class="fa-solid fa-bolt text-amber-400"></i> Thesis & Core Argument Flashcards
+          </h3>
+          <p class="text-xs text-blue-200">Click card to flip between Question Prompt and Answer Blueprint.</p>
+        </div>
+        <div class="flex gap-2">
+          <button onclick="prevFlashcard()" class="p-2.5 rounded-xl bg-blue-900 border border-blue-700 text-white hover:bg-blue-800 transition"><i class="fa-solid fa-chevron-left"></i></button>
+          <span id="card-counter" class="text-xs font-bold text-amber-400 flex items-center px-3 bg-blue-950 border border-blue-800 rounded-xl">1 / 18</span>
+          <button onclick="nextFlashcard()" class="p-2.5 rounded-xl bg-blue-900 border border-blue-700 text-white hover:bg-blue-800 transition"><i class="fa-solid fa-chevron-right"></i></button>
+        </div>
+      </div>
+
+      <div class="min-h-[380px] flex items-center justify-center">
+        <div id="flashcard-element" onclick="flipCard()" class="w-full max-w-2xl bg-slate-900/90 border-2 border-amber-500/40 hover:border-amber-400 rounded-3xl p-8 shadow-2xl cursor-pointer transition-all duration-300 relative min-h-[340px] flex flex-col justify-between">
+          <div id="card-front" class="space-y-4 my-auto text-center">
+            <span class="inline-block px-3.5 py-1 bg-blue-600/20 text-blue-300 border border-blue-500/40 rounded-full text-xs font-extrabold uppercase tracking-wider">Exam Prompt</span>
+            <h2 id="card-question" class="text-xl md:text-2xl font-bold text-white serif leading-snug"></h2>
+            <p class="text-xs text-amber-400 italic pt-4 flex items-center justify-center gap-1.5"><i class="fa-solid fa-hand-pointer"></i> Click card to reveal answer blueprint</p>
+          </div>
+
+          <div id="card-back" class="hidden space-y-4 text-left my-auto">
+            <span class="inline-block px-3.5 py-1 bg-amber-500/20 text-amber-300 border border-amber-400/40 rounded-full text-xs font-extrabold uppercase tracking-wider">Model Essay Blueprint</span>
+            
+            <div class="space-y-3 text-xs md:text-sm">
+              <div class="bg-red-950/40 p-3 rounded-xl border border-red-500/30">
+                <span class="text-amber-400 font-bold block mb-1">🎯 Core Thesis Line:</span>
+                <p id="card-thesis" class="text-slate-200 serif italic"></p>
+              </div>
+
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-2.5">
+                <div class="bg-blue-950/40 p-3 rounded-xl border border-blue-500/30">
+                  <span class="text-blue-300 font-bold block text-xs">Primary Factor Evidence:</span>
+                  <p id="card-agree-ev" class="text-slate-200 text-xs mt-1"></p>
+                </div>
+                <div class="bg-amber-950/40 p-3 rounded-xl border border-amber-500/30">
+                  <span class="text-amber-300 font-bold block text-xs">Counter Factor Evidence:</span>
+                  <p id="card-disagree-ev" class="text-slate-200 text-xs mt-1"></p>
+                </div>
+              </div>
+
+              <div class="bg-slate-950/80 p-3 rounded-xl border border-amber-500/30">
+                <span class="text-amber-400 font-bold block mb-1">⚖️ Final Evaluative Conclusion:</span>
+                <p id="card-conclusion" class="text-slate-200 text-xs serif"></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="border-t border-blue-900/60 bg-blue-950 py-4 text-center text-xs text-blue-300/70 font-medium">
+    Designed for Cambridge IGCSE / Edexcel GCSE History Revision • Red, Blue & Gold PEEL Edition
+  </footer>
+
+  <!-- JAVASCRIPT LOGIC -->
+  <script>
+    // Full Dataset of Essays
+    const essayData = [
+      {
+        id: 0,
+        topic: "League of Nations",
+        question: "\"The League of Nations was useless in the 1920s.\" How far do you agree? Explain your answer. [10]",
+        thesis: "The League was largely useless because while it settled minor disputes between cooperative smaller countries, it failed completely against powerful aggressive nations.",
+        paragraphs: [
+          { type: "intro", text: "The League of Nations achieved some successes in the 1920s by resolving disputes peacefully between smaller countries. However, it failed whenever disputes involved powerful nations that were unwilling to cooperate. Overall, I agree that the League was largely useless in the 1920s because although it successfully settled minor disputes, it was unable to uphold collective security in more serious international crises." },
+          { type: "agree", text: "The League was useful because it successfully resolved disputes between smaller countries through negotiation and compromise. For example, during the Upper Silesia dispute in 1921, both Germany and Poland claimed ownership of Upper Silesia because the region contained valuable coal mines and steel industries. After violence broke out, the League supervised an investigation and divided the territory between Germany and Poland. Germany received most of the land, while Poland received the areas containing many of the important industries. Although neither country obtained everything it wanted, both accepted the League's decision and fighting ended. This showed that the League could peacefully settle disputes when both countries were prepared to cooperate. Therefore, the League was useful in maintaining peace between smaller states." },
+          { type: "agree", text: "The League also succeeded in preventing war during the Greece-Bulgaria Crisis in 1925. For example, after Greek soldiers crossed the Bulgarian border following a border incident, Bulgaria appealed to the League instead of responding with force. The League immediately ordered both countries to stop fighting and sent representatives to investigate the dispute. Greece accepted the League's decision, withdrew its troops and paid compensation to Bulgaria. Both countries complied with the League's ruling, preventing the conflict from developing into a larger war. This demonstrated that the League could act quickly and effectively when member states respected its authority. Therefore, the League was capable of preserving peace in disputes involving smaller countries." },
+          { type: "disagree", text: "However, the League was largely useless when dealing with powerful countries because it could not enforce its decisions. For example, during the Vilna Crisis in 1920, Poland seized the city of Vilna despite Lithuania appealing to the League for help. The League ordered Poland to withdraw, but Poland refused because it wanted to keep control of the city. Britain and France were unwilling to take stronger action against Poland because they regarded Poland as an important barrier against communist Russia. Since the League had no army to enforce its decision, Vilna remained under Polish control. This showed that the League was unable to protect smaller countries when powerful members refused to cooperate. Therefore, the League was ineffective in resolving disputes involving national interests." },
+          { type: "disagree", text: "The League also failed during the Corfu Crisis in 1923, which further demonstrated its inability to deal with powerful countries. For example, after the murder of the Italian General Enrico Tellini on the Greek-Albanian border, Mussolini blamed Greece and ordered Italian forces to occupy the Greek island of Corfu. Greece appealed to the League for help, but Mussolini rejected the League's authority and insisted that the dispute be handled by the Conference of Ambassadors. Britain and France were unwilling to confront Italy because they wanted to maintain good relations with Mussolini. As a result, Greece was forced to pay compensation before Italy withdrew from Corfu. This showed that the League could not enforce collective security when faced with aggression by a major power. Therefore, the League failed whenever powerful countries ignored its authority." },
+          { type: "disagree", text: "Furthermore, the League's weaknesses reduced its effectiveness throughout the 1920s. For example, the United States never joined the League, depriving it of the support of the world's strongest economic power. Germany was excluded until 1926, while the Soviet Union did not become a member until 1934, meaning several major powers were absent for most of the decade. In addition, the League had no armed forces, relied mainly on moral persuasion, and many important decisions required unanimous agreement, making decisive action difficult. These weaknesses meant that the League depended heavily on the willingness of member states to cooperate rather than on its own authority. Therefore, the League lacked the strength needed to deal effectively with serious international disputes." },
+          { type: "conclusion", text: "In conclusion, although the League of Nations successfully resolved disputes such as Upper Silesia and Greece-Bulgaria, these successes mainly involved smaller countries that accepted its authority. In contrast, the Vilna Crisis and the Corfu Crisis showed that the League was unable to act effectively when powerful countries ignored its decisions or when Britain and France placed their own interests above collective security. These failures exposed the League's structural weaknesses, including its lack of armed forces, limited membership and reliance on moral persuasion. Therefore, I agree that the League was largely useless in the 1920s because it could maintain peace only in minor disputes but failed in more significant international crises." }
+        ],
+        clozeItems: [
+          { phrase: "Upper Silesia dispute in 1921", answer: "1921" },
+          { phrase: "Greece-Bulgaria Crisis in 1925", answer: "1925" },
+          { phrase: "Vilna Crisis in 1920", answer: "1920" },
+          { phrase: "General Enrico Tellini", answer: "Enrico Tellini" },
+          { phrase: "Corfu Crisis in 1923", answer: "1923" }
+        ],
+        agreeCards: ["Upper Silesia 1921 successful partition", "Greece-Bulgaria 1925 border dispute resolved"],
+        disagreeCards: ["Vilna Crisis 1920 Polish refusal", "Corfu Crisis 1923 Mussolini aggression", "US Absence & Lack of Standing Army"]
+      },
+      {
+        id: 1,
+        topic: "League of Nations",
+        question: "\"The League of Nations failed in the 1920s because it had no armed forces.\" How far do you agree? Explain your answer. [10]",
+        thesis: "Lack of armed forces was the primary reason for failure because it prevented the League from enforcing collective security when nations disobeyed.",
+        paragraphs: [
+          { type: "intro", text: "The lack of armed forces was an important reason for the League of Nations' failures in the 1920s because it was unable to enforce its decisions against aggressive countries. However, the League also failed because Britain and France often acted in their own self-interest, key countries were absent from the organisation, and the League relied on moral persuasion and unanimous agreement when making decisions. Overall, I agree that the lack of armed forces was the most important reason because it prevented the League from enforcing collective security whenever countries refused to cooperate." },
+          { type: "agree", text: "The lack of armed forces was the most important reason because the League could not force aggressive countries to obey its decisions. For example, during the Vilna Crisis in 1920, Poland seized the city of Vilna even though Lithuania appealed to the League for help. The League ordered Poland to withdraw its troops, but Poland refused because it wanted to retain control of the city, which had a large Polish population. Since the League had no army of its own, it could not remove the Polish forces or enforce its decision. Vilna remained under Polish control despite the League's ruling. This showed that aggressive countries could simply ignore the League when military force was required. Therefore, the League's lack of armed forces seriously weakened its ability to enforce collective security." },
+          { type: "agree", text: "The League's lack of armed forces was also demonstrated during the Corfu Crisis in 1923. For example, after the murder of the Italian General Enrico Tellini on the Greek-Albanian border, Mussolini blamed Greece and ordered Italian forces to occupy the Greek island of Corfu. Greece appealed to the League for assistance, but Mussolini refused to accept the League's authority and threatened to withdraw from the organisation. Since the League had no military force to remove the Italian troops, it could not compel Italy to obey its decisions. Greece was eventually forced to pay compensation before Italy agreed to withdraw. This demonstrated that the League was powerless when dealing with powerful countries prepared to use military force. Therefore, the lack of armed forces prevented the League from protecting its members and enforcing its authority." },
+          { type: "disagree", text: "However, the self-interest of Britain and France was also an important reason for the League's failures because they often placed their own national interests above collective security. For example, during the Ruhr Crisis in 1923, France and Belgium occupied Germany's Ruhr industrial region after Germany failed to pay reparations required under the Treaty of Versailles. Britain disagreed with the occupation because it feared that weakening Germany would damage European economic recovery, while France believed Germany should be forced to pay. Instead of allowing the League to resolve the dispute, both countries acted according to their own interests. This showed that even the League's strongest members ignored collective security when it conflicted with their national priorities. Therefore, the self-interest of Britain and France weakened the League's effectiveness." },
+          { type: "disagree", text: "The League also suffered because several major powers were absent from the organisation during the 1920s. For example, the United States never joined the League despite President Wilson proposing its creation. Without American economic and military strength, the League lacked the influence needed to pressure aggressive countries. In addition, Germany was excluded until 1926, while the Soviet Union was not admitted until 1934, meaning two major European powers were absent throughout most of the 1920s. As a result, the League did not truly represent all the world's great powers, making collective security much weaker. Therefore, the absence of important member states reduced the League's authority and ability to resolve international disputes." },
+          { type: "disagree", text: "The League also relied heavily on moral persuasion and unanimous agreement, which often delayed or prevented effective action. For example, during the Corfu Crisis, the League attempted to persuade Mussolini to settle the dispute peacefully and encouraged both Italy and Greece to accept its recommendations. However, Mussolini rejected the League's authority and insisted that the dispute be handled by the Conference of Ambassadors instead. At the same time, League members were unable to agree on taking stronger action because Britain and France were unwilling to confront Italy directly. As a result, the League accepted a compromise in which Greece paid compensation before Italy withdrew from Corfu. This showed that the League depended on countries accepting its decisions voluntarily and that unanimous agreement often prevented firm action against aggressors. Therefore, the League's reliance on moral persuasion and unanimous agreement reduced its effectiveness in dealing with international disputes." },
+          { type: "conclusion", text: "In conclusion, although the self-interest of Britain and France, the absence of key member states, and the League's reliance on moral persuasion and unanimous agreement all contributed to its failures in the 1920s, the lack of armed forces was ultimately the more important reason. The League condemned aggression during both the Vilna Crisis and the Corfu Crisis, but it could not enforce its decisions because it had no military force of its own. This allowed aggressive countries to ignore the League's authority and undermined confidence in collective security. Therefore, I agree that the lack of armed forces was the most important reason for the League of Nations' failure in the 1920s." }
+        ],
+        clozeItems: [
+          { phrase: "Ruhr Crisis in 1923", answer: "1923" },
+          { phrase: "President Wilson proposing", answer: "Wilson" },
+          { phrase: "Germany was excluded until 1926", answer: "1926" },
+          { phrase: "Soviet Union was not admitted until 1934", answer: "1934" }
+        ],
+        agreeCards: ["No army to remove Polish troops in Vilna 1920", "Inability to expel Italian troops in Corfu 1923"],
+        disagreeCards: ["British and French self-interest (Ruhr 1923)", "Absence of US, Germany, USSR", "Requirement of unanimous voting & moral persuasion"]
+      },
+      {
+        id: 2,
+        topic: "Weimar & Hitler",
+        question: "\"Hitler rose to power mainly because of the weaknesses of the Weimar Republic.\" How far do you agree? [10]",
+        thesis: "While Weimar weaknesses laid the groundwork, the Great Depression was the ultimate catalyst that converted dissatisfaction into mass votes.",
+        paragraphs: [
+          { type: "intro", text: "The weaknesses of the Weimar Republic were a major reason for Hitler's rise to power because they caused many Germans to lose faith in democracy long before the Nazis became popular. However, these weaknesses alone did not bring Hitler to power. The Great Depression dramatically increased support for extremist parties, while Hitler's charisma and widespread fear of communism further strengthened the Nazi Party. Therefore, although the weaknesses of the Weimar Republic laid the foundations for Hitler's rise, the Great Depression was ultimately the most important factor." },
+          { type: "agree", text: "The Weimar Republic was weakened from the beginning because many Germans regarded it as an illegitimate government. Its association with Germany's defeat in the First World War damaged its credibility and encouraged opposition from both the left and the right. For example, Weimar politicians signed the Treaty of Versailles in 1919, earning the label 'November Criminals' because many Germans believed they had betrayed the nation. The Treaty was widely condemned as a Diktat, forcing Germany to accept war guilt, pay reparations and surrender territory without negotiation. This created lasting resentment towards the Republic, allowing extremist parties such as the Nazis to present themselves as defenders of German honour." },
+          { type: "agree", text: "The political system of the Weimar Republic also made stable government difficult. Frequent changes of government convinced many Germans that democracy was weak and ineffective. For example, proportional representation allowed many small parties to enter the Reichstag, making coalition governments necessary. These coalitions often disagreed over policy and collapsed before solving Germany's problems. At the same time, extremist groups repeatedly challenged the Republic through violence, including the Spartacist Uprising in 1919, the Kapp Putsch in 1920 and Hitler's own Munich Putsch in 1923. Although these uprisings failed, they exposed the Republic's inability to maintain political stability and weakened public confidence in democratic rule." },
+          { type: "disagree", text: "However, the Great Depression was the most important reason for Hitler's rise because it transformed long-standing dissatisfaction into overwhelming support for the Nazi Party. Economic collapse caused millions of Germans to abandon moderate political parties in favour of extremist solutions. For example, after the Wall Street Crash of 1929, American loans were withdrawn, businesses failed and unemployment reached about six million by 1932. Chancellor Brüning's policy of reducing government spending only worsened hardship. The Nazis promised jobs, economic recovery and strong leadership, causing their support to increase dramatically from just 12 seats in 1928 to 230 seats in July 1932, making them the largest party in the Reichstag. The Great Depression therefore converted the Republic's weaknesses into a crisis that allowed Hitler to emerge as a credible national leader." },
+          { type: "disagree", text: "Hitler's charisma and the Nazis' effective propaganda also contributed significantly to his rise. The Nazi Party successfully persuaded many Germans that Hitler alone could restore Germany's strength and prosperity. For example, Hitler was a gifted orator whose speeches appealed to unemployed workers, the middle class and war veterans alike. Under Joseph Goebbels, the Nazis organised mass rallies, posters, radio broadcasts and aeroplane tours to spread their message across Germany. Hitler promised to restore national pride, overturn the Treaty of Versailles and create employment, making him appear far more decisive than Weimar politicians. This enabled the Nazis to convert growing public frustration into electoral support." },
+          { type: "disagree", text: "Fear of communism further increased support for Hitler. Many Germans believed that only the Nazis could prevent Germany from experiencing a communist revolution. For example, the Communist Party gained support during the Great Depression, alarming industrialists, landowners and the middle class. Memories of the Spartacist Uprising and the success of the Russian Revolution made many Germans fear that communism would abolish private property and destroy social order. As a result, wealthy businessmen financed the Nazi Party, while conservative voters supported Hitler because they feared communism more than Nazism. This broadened Nazi support beyond committed fascists and strengthened Hitler's political position." },
+          { type: "conclusion", text: "In conclusion, the weaknesses of the Weimar Republic were highly significant because they undermined confidence in democracy through the Treaty of Versailles, unstable coalition governments and repeated political unrest. However, these weaknesses had existed for years without bringing Hitler to power. The Great Depression was more significant because it transformed widespread dissatisfaction into mass electoral support for the Nazi Party. Combined with Hitler's charismatic leadership and growing fear of communism, the economic crisis enabled Hitler to become Chancellor in 1933. Therefore, while the weaknesses of the Weimar Republic created the conditions for Nazi success, the Great Depression was the decisive factor that brought Hitler to power." }
+        ],
+        clozeItems: [
+          { phrase: "Treaty of Versailles in 1919", answer: "1919" },
+          { phrase: "November Criminals", answer: "November Criminals" },
+          { phrase: "Spartacist Uprising in 1919", answer: "1919" },
+          { phrase: "Kapp Putsch in 1920", answer: "1920" },
+          { phrase: "Munich Putsch in 1923", answer: "1923" },
+          { phrase: "Wall Street Crash of 1929", answer: "1929" },
+          { phrase: "230 seats in July 1932", answer: "230" }
+        ],
+        agreeCards: ["Stigma of Treaty of Versailles / November Criminals", "Proportional Representation & weak coalitions", "Putsches (Spartacist, Kapp, Munich)"],
+        disagreeCards: ["Great Depression (6 million unemployed by 1932)", "Hitler's Oratory & Goebbels Propaganda", "Fear of Communism among Business Elites"]
+      }
+    ];
+
+    const all18Prompts = [
+      { id: 0, topic: "League of Nations", q: "\"The League of Nations was useless in the 1920s.\" How far do you agree? [10]" },
+      { id: 1, topic: "League of Nations", q: "\"The League of Nations failed in the 1920s because it had no armed forces.\" How far do you agree? [10]" },
+      { id: 2, topic: "Weimar & Hitler", q: "\"Hitler rose to power mainly because of the weaknesses of the Weimar Republic.\" How far do you agree? [10]" },
+      { id: 3, topic: "Weimar & Hitler", q: "\"The Great Depression was the most important reason for Hitler's rise to power by January 1933.\" How far do you agree? [10]" },
+      { id: 4, topic: "Nazi Dictatorship", q: "“The Night of the Long Knives enabled Hitler to achieve total control over Germany.” How far do you agree?" },
+      { id: 5, topic: "Causes of WWII", q: "“Hitler’s ambitions were mainly responsible for the outbreak of the Second World War.” How far do you agree? [10]" },
+      { id: 6, topic: "Causes of WWII", q: "“Appeasement was justified.” How far do you agree? Explain your answer. [10]" },
+      { id: 7, topic: "Causes of WWII", q: "“The signing of the Nazi-Soviet Pact was mainly responsible for the outbreak of WWII.” How far do you agree? [10]" },
+      { id: 8, topic: "Causes of WWII", q: "“The failure of the Disarmament Conference was mainly responsible for the outbreak of WWII.” How far do you agree? [10]" },
+      { id: 9, topic: "WWII Military Defeat", q: "\"The opening of the Second Front was the most important reason for Germany's defeat.\" How far do you agree? [10]" },
+      { id: 10, topic: "WWII Military Defeat", q: "“American economic and military superiority was the most important reason for Japan's defeat.\" How far do you agree? [10]" },
+      { id: 11, topic: "WWII Military Defeat", q: "\"American military superiority was the most important reason for Japan's defeat.\" How far do you agree? [10]" },
+      { id: 12, topic: "Cold War Origins", q: "\"The Soviet Union was responsible for starting the Cold War.\" How far do you agree? [10]" },
+      { id: 13, topic: "Cold War Origins", q: "\"The Potsdam Conference was the most critical event that led to the Cold War in Europe.\" How far do you agree? [10]" },
+      { id: 14, topic: "Cold War Origins", q: "\"The Soviet Union was justified in its actions during the Cold War.\" How far do you agree? [10]" },
+      { id: 15, topic: "Cold War Origins", q: "\"Soviet expansion in Eastern Europe was the most important cause of the Cold War.\" How far do you agree? [10]" },
+      { id: 16, topic: "Korean War", q: "“The Korean War was more of a civil war than a proxy war.” How far do you agree? [10]" },
+      { id: 17, topic: "Korean War", q: "“The United States entered the Korean War mainly to assist the United Nations.” How far do you agree? [10]" }
+    ];
+
+    // App State
+    let currentEssayIndex = 0;
+    let currentTab = 'analyzer';
+    let currentFlashcardIndex = 0;
+    let activeHighlights = { point: true, evidence: true, explain: true, link: true };
+
+    // DOM Ready Initialization
+    window.addEventListener('DOMContentLoaded', () => {
+      populateEssayDropdown();
+      loadSelectedEssay();
+    });
+
+    function populateEssayDropdown() {
+      const selector = document.getElementById('essay-selector');
+      selector.innerHTML = '';
+      
+      all18Prompts.forEach((item) => {
+        const opt = document.createElement('option');
+        opt.value = item.id;
+        opt.textContent = `[${item.topic}] ${item.q}`;
+        selector.appendChild(opt);
+      });
+    }
+
+    function loadSelectedEssay() {
+      const idx = parseInt(document.getElementById('essay-selector').value);
+      currentEssayIndex = idx;
+      
+      const data = essayData[idx] || essayData[0];
+      const promptObj = all18Prompts[idx] || all18Prompts[0];
+      document.getElementById('topic-tag').textContent = promptObj.topic;
+
+      renderAnalyzer(data, promptObj);
+      renderCloze(data, promptObj);
+      renderPlanner(data, promptObj);
+      renderUnscramble(data, promptObj);
+      renderFlashcard(idx);
+    }
+
+    function switchTab(tabName) {
+      currentTab = tabName;
+      ['analyzer', 'cloze', 'planner', 'unscramble', 'flashcards'].forEach(t => {
+        document.getElementById(`view-${t}`).classList.add('hidden');
+        document.getElementById(`tab-${t}`).classList.remove('bg-red-600', 'text-white', 'shadow-md', 'border', 'border-amber-400/40');
+        document.getElementById(`tab-${t}`).classList.add('text-blue-200');
+      });
+
+      document.getElementById(`view-${tabName}`).classList.remove('hidden');
+      document.getElementById(`tab-${tabName}`).classList.add('bg-red-600', 'text-white', 'shadow-md', 'border', 'border-amber-400/40');
+      document.getElementById(`tab-${tabName}`).classList.remove('text-blue-200');
+    }
+
+    /* ----------------------------------------------------
+       1. STRICT 4-COLOR PEEL ANALYZER
+    ---------------------------------------------------- */
+    function renderAnalyzer(data, promptObj) {
+      document.getElementById('analyzer-question').textContent = promptObj.q;
+      const container = document.getElementById('analyzer-content');
+      container.innerHTML = '';
+
+      data.paragraphs.forEach((p) => {
+        const pEl = document.createElement('p');
+        pEl.className = 'p-4 rounded-xl border transition-all text-slate-200 leading-relaxed bg-slate-900/60 border-slate-800';
+
+        if (p.type === 'intro') {
+          pEl.classList.add('border-blue-700/80');
+          pEl.innerHTML = `<span class="text-xs font-bold text-amber-400 block mb-1 uppercase tracking-wider flex items-center gap-1.5"><i class="fa-solid fa-flag text-red-400"></i> Introduction & Overall Thesis</span>${p.text}`;
+        } else if (p.type === 'conclusion') {
+          pEl.classList.add('border-amber-400/50', 'bg-blue-950/40');
+          pEl.innerHTML = `<span class="text-xs font-bold text-amber-300 block mb-1 uppercase tracking-wider flex items-center gap-1.5"><i class="fa-solid fa-award text-amber-400"></i> Evaluative Conclusion</span>${p.text}`;
+        } else {
+          // Break paragraph into sentences & assign 4 PEEL colors
+          const sentences = p.text.match(/[^.!?]+[.!?]+/g) || [p.text];
+          let formattedHtml = '';
+
+          sentences.forEach((s, sIdx) => {
+            if (sIdx === 0) {
+              // P - Point (Sentence 1)
+              formattedHtml += `<span class="${activeHighlights.point ? 'peel-point' : ''}">${s}</span> `;
+            } else if (s.includes('For example') || s.includes('192') || s.includes('193') || s.includes('194') || s.includes('195') || s.includes('Crisis') || s.includes('August') || s.includes('September')) {
+              // E - Evidence (Specific examples, dates, names)
+              formattedHtml += `<span class="${activeHighlights.evidence ? 'peel-evidence' : ''}">${s}</span> `;
+            } else if (s.includes('Therefore') || s.includes('This showed') || s.includes('As a result') || s.includes('Consequently') || s.includes('This demonstrated')) {
+              // L - Link Back (Linking sentence)
+              formattedHtml += `<span class="${activeHighlights.link ? 'peel-link' : ''}">${s}</span> `;
+            } else {
+              // E - Explain (Explanation / Analysis)
+              formattedHtml += `<span class="${activeHighlights.explain ? 'peel-explain' : ''}">${s}</span> `;
+            }
+          });
+
+          pEl.innerHTML = `<span class="text-xs font-bold text-blue-300 block mb-1 uppercase tracking-wider">${p.type === 'agree' ? 'Supporting Factor Paragraph' : 'Counter Factor Paragraph'}</span>${formattedHtml}`;
+        }
+
+        container.appendChild(pEl);
+      });
+    }
+
+    function toggleHighlight(type) {
+      activeHighlights[type] = !activeHighlights[type];
+      
+      // Update Button visual active state
+      const btnMap = {
+        point: 'btn-hl-point',
+        evidence: 'btn-hl-evidence',
+        explain: 'btn-hl-explain',
+        link: 'btn-hl-link'
+      };
+
+      const btn = document.getElementById(btnMap[type]);
+      if (activeHighlights[type]) {
+        btn.classList.remove('opacity-40');
+      } else {
+        btn.classList.add('opacity-40');
+      }
+
+      loadSelectedEssay();
+    }
+
+    function resetHighlights() {
+      activeHighlights = { point: true, evidence: true, explain: true, link: true };
+      ['btn-hl-point', 'btn-hl-evidence', 'btn-hl-explain', 'btn-hl-link'].forEach(id => {
+        document.getElementById(id).classList.remove('opacity-40');
+      });
+      loadSelectedEssay();
+    }
+
+    /* ----------------------------------------------------
+       2. CLOZE (ACTIVE RECALL) LOGIC
+    ---------------------------------------------------- */
+    function renderCloze(data, promptObj) {
+      document.getElementById('cloze-question').textContent = promptObj.q;
+      const body = document.getElementById('cloze-body');
+      body.innerHTML = '';
+
+      let totalGaps = 0;
+
+      data.paragraphs.forEach((p) => {
+        let text = p.text;
+        data.clozeItems.forEach((item) => {
+          if (text.includes(item.answer)) {
+            totalGaps++;
+            text = text.replace(
+              item.answer,
+              `<input type="text" data-answer="${item.answer}" class="cloze-input bg-blue-950 border border-amber-500/50 rounded px-2.5 py-0.5 text-amber-300 font-bold text-sm w-36 text-center focus:outline-none focus:ring-2 focus:ring-amber-400" placeholder="[???]" />`
+            );
+          }
+        });
+
+        const pEl = document.createElement('p');
+        pEl.className = 'bg-slate-900/60 p-4 rounded-xl border border-blue-900/40 leading-relaxed';
+        pEl.innerHTML = text;
+        body.appendChild(pEl);
+      });
+
+      document.getElementById('cloze-score').textContent = `0 / ${totalGaps}`;
+    }
+
+    function checkClozeAnswers() {
+      const inputs = document.querySelectorAll('.cloze-input');
+      let correct = 0;
+
+      inputs.forEach(input => {
+        const userVal = input.value.trim().toLowerCase();
+        const expected = input.getAttribute('data-answer').toLowerCase();
+
+        if (userVal === expected || (expected.includes(userVal) && userVal.length > 2)) {
+          correct++;
+          input.classList.remove('border-amber-500/50', 'bg-blue-950', 'border-red-500');
+          input.classList.add('bg-blue-900', 'border-amber-400', 'text-amber-300');
+        } else {
+          input.classList.remove('border-amber-500/50', 'bg-blue-950', 'border-amber-400');
+          input.classList.add('bg-red-950', 'border-red-500', 'text-red-200');
+        }
+      });
+
+      document.getElementById('cloze-score').textContent = `${correct} / ${inputs.length}`;
+    }
+
+    /* ----------------------------------------------------
+       3. FACTOR PLANNER LOGIC
+    ---------------------------------------------------- */
+    function renderPlanner(data, promptObj) {
+      document.getElementById('planner-question').textContent = promptObj.q;
+      const pool = document.getElementById('planner-pool');
+      const zoneAgree = document.getElementById('zone-agree');
+      const zoneDisagree = document.getElementById('zone-disagree');
+
+      pool.innerHTML = '';
+      zoneAgree.innerHTML = '';
+      zoneDisagree.innerHTML = '';
+      document.getElementById('planner-feedback').textContent = '';
+
+      const allCards = [
+        ...data.agreeCards.map(c => ({ text: c, type: 'agree' })),
+        ...data.disagreeCards.map(c => ({ text: c, type: 'disagree' }))
+      ].sort(() => Math.random() - 0.5);
+
+      allCards.forEach((card, idx) => {
+        const cardBtn = document.createElement('div');
+        cardBtn.className = 'bg-blue-950 border border-blue-700/80 text-blue-100 text-xs px-3 py-2 rounded-xl transition flex items-center justify-between gap-3 shadow-md';
+        cardBtn.id = `planner-card-${idx}`;
+        cardBtn.innerHTML = `
+          <span class="font-medium">${card.text}</span>
+          <div class="flex gap-1">
+            <button onclick="assignCard(${idx}, 'agree', '${card.type}')" class="px-2 py-0.5 bg-blue-600 hover:bg-blue-500 rounded text-[10px] text-white font-bold">Agree</button>
+            <button onclick="assignCard(${idx}, 'disagree', '${card.type}')" class="px-2 py-0.5 bg-red-600 hover:bg-red-500 rounded text-[10px] text-white font-bold">Disagree</button>
+          </div>
+        `;
+        pool.appendChild(cardBtn);
+      });
+
+      updatePlannerCounts();
+    }
+
+    function assignCard(cardIdx, zone, actualType) {
+      const cardEl = document.getElementById(`planner-card-${cardIdx}`);
+      if (!cardEl) return;
+
+      if (zone === 'agree') {
+        document.getElementById('zone-agree').appendChild(cardEl);
+      } else {
+        document.getElementById('zone-disagree').appendChild(cardEl);
+      }
+
+      cardEl.setAttribute('data-assigned', zone);
+      cardEl.setAttribute('data-actual', actualType);
+
+      updatePlannerCounts();
+    }
+
+    function updatePlannerCounts() {
+      const agreeCards = document.getElementById('zone-agree').children.length;
+      const disagreeCards = document.getElementById('zone-disagree').children.length;
+      document.getElementById('agree-count').textContent = `${agreeCards} cards`;
+      document.getElementById('disagree-count').textContent = `${disagreeCards} cards`;
+    }
+
+    function checkPlannerSort() {
+      const agreeZone = document.getElementById('zone-agree').children;
+      const disagreeZone = document.getElementById('zone-disagree').children;
+      let mistakes = 0;
+
+      for (let card of agreeZone) {
+        if (card.getAttribute('data-actual') !== 'agree') mistakes++;
+      }
+      for (let card of disagreeZone) {
+        if (card.getAttribute('data-actual') !== 'disagree') mistakes++;
+      }
+
+      const feedback = document.getElementById('planner-feedback');
+      if (mistakes === 0 && (agreeZone.length + disagreeZone.length > 0)) {
+        feedback.className = "text-xs font-bold text-amber-300";
+        feedback.innerHTML = `<i class="fa-solid fa-circle-check text-amber-400"></i> Excellent Balance! All factors organized correctly.`;
+      } else {
+        feedback.className = "text-xs font-bold text-red-400";
+        feedback.innerHTML = `<i class="fa-solid fa-triangle-exclamation"></i> ${mistakes} card(s) misplaced. Double check supporting vs counter factors.`;
+      }
+    }
+
+    /* ----------------------------------------------------
+       4. PARAGRAPH UNSCRAMBLE LOGIC
+    ---------------------------------------------------- */
+    let currentUnscrambleOrder = [];
+
+    function renderUnscramble(data, promptObj) {
+      document.getElementById('unscramble-question').textContent = promptObj.q;
+      const list = document.getElementById('unscramble-list');
+      list.innerHTML = '';
+      document.getElementById('unscramble-feedback').textContent = '';
+
+      const indexedParagraphs = data.paragraphs.map((p, originalIdx) => ({
+        text: p.text,
+        originalIdx: originalIdx,
+        type: p.type
+      })).sort(() => Math.random() - 0.5);
+
+      currentUnscrambleOrder = indexedParagraphs;
+
+      indexedParagraphs.forEach((p, idx) => {
+        const item = document.createElement('div');
+        item.className = 'bg-blue-950/40 border border-blue-800/80 p-4 rounded-xl flex items-center justify-between gap-4 text-xs md:text-sm text-slate-200 leading-relaxed';
+        item.innerHTML = `
+          <div class="flex-1 serif">${p.text.substring(0, 150)}...</div>
+          <div class="flex flex-col gap-1">
+            <button onclick="moveParagraph(${idx}, -1)" class="p-1.5 bg-red-600 hover:bg-red-500 text-white rounded-md"><i class="fa-solid fa-chevron-up"></i></button>
+            <button onclick="moveParagraph(${idx}, 1)" class="p-1.5 bg-red-600 hover:bg-red-500 text-white rounded-md"><i class="fa-solid fa-chevron-down"></i></button>
+          </div>
+        `;
+        list.appendChild(item);
+      });
+    }
+
+    function moveParagraph(index, direction) {
+      const targetIndex = index + direction;
+      if (targetIndex < 0 || targetIndex >= currentUnscrambleOrder.length) return;
+
+      const temp = currentUnscrambleOrder[index];
+      currentUnscrambleOrder[index] = currentUnscrambleOrder[targetIndex];
+      currentUnscrambleOrder[targetIndex] = temp;
+
+      const list = document.getElementById('unscramble-list');
+      list.innerHTML = '';
+
+      currentUnscrambleOrder.forEach((p, idx) => {
+        const item = document.createElement('div');
+        item.className = 'bg-blue-950/40 border border-blue-800/80 p-4 rounded-xl flex items-center justify-between gap-4 text-xs md:text-sm text-slate-200 leading-relaxed';
+        item.innerHTML = `
+          <div class="flex-1 serif">${p.text.substring(0, 150)}...</div>
+          <div class="flex flex-col gap-1">
+            <button onclick="moveParagraph(${idx}, -1)" class="p-1.5 bg-red-600 hover:bg-red-500 text-white rounded-md"><i class="fa-solid fa-chevron-up"></i></button>
+            <button onclick="moveParagraph(${idx}, 1)" class="p-1.5 bg-red-600 hover:bg-red-500 text-white rounded-md"><i class="fa-solid fa-chevron-down"></i></button>
+          </div>
+        `;
+        list.appendChild(item);
+      });
+    }
+
+    function checkParagraphOrder() {
+      let isCorrect = true;
+      for (let i = 0; i < currentUnscrambleOrder.length; i++) {
+        if (currentUnscrambleOrder[i].originalIdx !== i) {
+          isCorrect = false;
+          break;
+        }
+      }
+
+      const fb = document.getElementById('unscramble-feedback');
+      if (isCorrect) {
+        fb.className = "text-xs font-bold text-amber-300";
+        fb.innerHTML = `<i class="fa-solid fa-circle-check text-amber-400"></i> Flawless! Paragraph sequence is in perfect order.`;
+      } else {
+        fb.className = "text-xs font-bold text-red-400";
+        fb.innerHTML = `<i class="fa-solid fa-lightbulb"></i> Sequence needs adjustment. Make sure Intro comes first and Conclusion comes last!`;
+      }
+    }
+
+    /* ----------------------------------------------------
+       5. FLASHCARD LOGIC
+    ---------------------------------------------------- */
+    function renderFlashcard(idx) {
+      currentFlashcardIndex = idx;
+      const promptObj = all18Prompts[idx] || all18Prompts[0];
+      const data = essayData[idx] || essayData[0];
+
+      document.getElementById('card-question').textContent = promptObj.q;
+      document.getElementById('card-thesis').textContent = data.thesis;
+      document.getElementById('card-agree-ev').textContent = data.agreeCards.join(", ");
+      document.getElementById('card-disagree-ev').textContent = data.disagreeCards.join(", ");
+      document.getElementById('card-conclusion').textContent = data.paragraphs[data.paragraphs.length - 1].text;
+
+      document.getElementById('card-counter').textContent = `${idx + 1} / ${all18Prompts.length}`;
+
+      document.getElementById('card-front').classList.remove('hidden');
+      document.getElementById('card-back').classList.add('hidden');
+    }
+
+    function flipCard() {
+      const front = document.getElementById('card-front');
+      const back = document.getElementById('card-back');
+
+      if (front.classList.contains('hidden')) {
+        front.classList.remove('hidden');
+        back.classList.add('hidden');
+      } else {
+        front.classList.add('hidden');
+        back.classList.remove('hidden');
+      }
+    }
+
+    function nextFlashcard() {
+      currentFlashcardIndex = (currentFlashcardIndex + 1) % all18Prompts.length;
+      document.getElementById('essay-selector').value = currentFlashcardIndex;
+      loadSelectedEssay();
+    }
+
+    function prevFlashcard() {
+      currentFlashcardIndex = (currentFlashcardIndex - 1 + all18Prompts.length) % all18Prompts.length;
+      document.getElementById('essay-selector').value = currentFlashcardIndex;
+      loadSelectedEssay();
+    }
+  </script>
+</body>
+</html>
